@@ -49,17 +49,13 @@ public class NetworkUtils {
                     .url(BASE_URL)
                     .build();
             Response responses = null;
-            String jsonData = "";
             try {
                 responses = client.newCall(request).execute();
-                jsonData = responses.body().string();
+                return new JSONObject(responses.body().string());
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d("MIKE EXCEPTION@#", e.toString());
             }
-
-            Log.d("MIKE exception KOK", jsonData);
-            Jobject = new JSONObject(jsonData);
         } catch (JSONException e) {
             Log.d("MIKE exception lol", e.toString());
         }
