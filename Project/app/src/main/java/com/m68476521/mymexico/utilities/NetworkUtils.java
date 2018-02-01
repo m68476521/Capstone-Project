@@ -1,12 +1,14 @@
 package com.m68476521.mymexico.utilities;
 
+import android.net.Uri;
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,14 +20,33 @@ import okhttp3.Response;
 
 public class NetworkUtils {
     //TODO: add the api URL into URL
-    private static final String URL = "";
+    private final static String BASE_URL =
+            "";
 
-    public void testConnection() {
+
+    private final static String TAG = "NetworkUtils";
+
+    public static java.net.URL buildUrl() {
+        Uri builtUri = null;
+        builtUri = Uri.parse(BASE_URL).buildUpon()
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri != null ? builtUri.toString() : null);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public JSONObject getDataFromApi() {
+        JSONObject Jobject = null;
         Log.d("MIKE exception ", "MIKE");
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url(URL)
+                    .url(BASE_URL)
                     .build();
             Response responses = null;
             String jsonData = "";
@@ -37,18 +58,12 @@ public class NetworkUtils {
                 Log.d("MIKE EXCEPTION@#", e.toString());
             }
 
-            Log.d("MIKE exception ", jsonData);
-            JSONObject Jobject = new JSONObject(jsonData);
-            JSONArray Jarray = Jobject.getJSONArray("employees");
-
-            for (int i = 0; i < Jarray.length(); i++) {
-                JSONObject object = Jarray.getJSONObject(i);
-            }
-
-
+            Log.d("MIKE exception KOK", jsonData);
+            Jobject = new JSONObject(jsonData);
         } catch (JSONException e) {
-            Log.d("MIKE exception ", e.toString());
+            Log.d("MIKE exception lol", e.toString());
         }
+        return Jobject;
     }
 }
 
