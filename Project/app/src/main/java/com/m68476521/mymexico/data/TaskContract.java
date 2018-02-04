@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 
 public class TaskContract {
 
-    public static final String AUTHORITY = "com.ackila.mymexico";
+    public static final String AUTHORITY = "com.m68476521.mymexico";
     //base content URI
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 

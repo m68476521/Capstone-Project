@@ -29,7 +29,6 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 TaskContract.TaskEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_LAST_MODIFIED + " TEXT NOT NULL, " +
-                TaskContract.TaskEntry.CONTENT_URI + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_IMAGE + " TEXT NOT NULL);";
 
         db.execSQL(CREATE_TABLE);
