@@ -31,12 +31,23 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 TaskContract.TaskEntry.COLUMN_LAST_MODIFIED + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_IMAGE + " TEXT NOT NULL);";
 
+        final String CREATE_TABLE_TRICKS = "CREATE TABLE " + TaskContract.TaskEntry.TABLE_NAME_TRICKS + " (" +
+                TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY, " +
+                TaskContract.TaskEntry.COLUMN_ID + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_FCM_QUESTION + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_FCM_ANSWER + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_FCM_HINT + " TEXT NOT NULL);";
+
+        db.execSQL(CREATE_TABLE_TRICKS);
         db.execSQL(CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE_NAME_TRICKS);
         onCreate(db);
     }
 }

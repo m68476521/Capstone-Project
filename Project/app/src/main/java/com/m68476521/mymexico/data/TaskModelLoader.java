@@ -7,7 +7,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
 /**
- * Created by mike on 2/3/18.
+ * Class used to handles the loaders
  */
 
 public class TaskModelLoader extends AsyncTaskLoader<Cursor> {
@@ -38,11 +38,11 @@ public class TaskModelLoader extends AsyncTaskLoader<Cursor> {
                             null);
                     break;
                 case 2:
-                    cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
+                    cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_TRICKS,
                             null,
                             null,
                             null,
-                            TaskContract.TaskEntry.COLUMN_ID);
+                            null);
                     break;
                 default:
                     Log.d(TAG, " id query not found");

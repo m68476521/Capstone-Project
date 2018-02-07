@@ -21,6 +21,18 @@
         <provider
             android:authorities="com.m68476521.mymexico"
             android:name=".data.TaskContentProvider" />
+
+        <service android:name=".fcm.MyMexicoFirebaseMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        
+        <service android:name=".fcm.MyMexicoFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

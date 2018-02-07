@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyMexico</string>
+    <string name="notification_message">"New trick from %1$s"</string>
 </resources>

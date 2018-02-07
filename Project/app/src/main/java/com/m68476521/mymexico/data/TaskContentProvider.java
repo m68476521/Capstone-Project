@@ -12,7 +12,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import static com.m68476521.mymexico.data.TaskContract.TaskEntry.CONTENT_URI;
+import static com.m68476521.mymexico.data.TaskContract.TaskEntry.CONTENT_URI_TRICKS;
 import static com.m68476521.mymexico.data.TaskContract.TaskEntry.TABLE_NAME;
+import static com.m68476521.mymexico.data.TaskContract.TaskEntry.TABLE_NAME_TRICKS;
 
 /**
  * Content provider manages access to the media database
@@ -20,11 +22,13 @@ import static com.m68476521.mymexico.data.TaskContract.TaskEntry.TABLE_NAME;
 
 public class TaskContentProvider extends ContentProvider {
     public static final int NEWS = 100;
+    public static final int TRICKS = 200;
     private static final UriMatcher uriMatcher = buildUriMatcher();
 
     public static UriMatcher buildUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_NEWS, NEWS);
+        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TRICKS, TRICKS);
         return uriMatcher;
     }
 
@@ -47,6 +51,15 @@ public class TaskContentProvider extends ContentProvider {
         switch (match) {
             case NEWS:
                 retCursor = db.query(TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case TRICKS:
+                retCursor = db.query(TABLE_NAME_TRICKS,
                         projection,
                         selection,
                         selectionArgs,
@@ -84,6 +97,15 @@ public class TaskContentProvider extends ContentProvider {
                     throw new android.database.SQLException("Failed to insert raw " + uri);
                 }
                 break;
+            case TRICKS:
+                long id_ing = db.insert(TABLE_NAME_TRICKS, null, values);
+                if (id_ing > 0) {
+                    returnUri = ContentUris.withAppendedId(CONTENT_URI_TRICKS, id_ing);
+                } else {
+                    throw new android.database.SQLException("Failed to insert raw " + uri);
+                }
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
         }

@@ -44,6 +44,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             String description = cursor.getString(descriptionIndex);
             Log.d("MIKE", "swap cursorCD: " + description);
         }
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey("f_question")) {
+            Log.d("MIKE get Intent extra ", extras.getString("f_question"));
+        }
+
+        Cursor cursor2 = getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_TRICKS,
+                null,
+                null,
+                null,
+                null);
+
+        for (cursor2.moveToFirst(); !cursor2.isAfterLast(); cursor2.moveToNext()) {
+            int descriptionIndex = cursor2.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION);
+            String description = cursor2.getString(descriptionIndex);
+            Log.d("MIKE", "swap cursorCD: " + description);
+        }
     }
 
     private void getApiData() {
