@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import android.util.Log;
 
 import com.m68476521.mymexico.data.TaskContract;
 import com.m68476521.mymexico.data.TaskModelLoader;
+import com.m68476521.mymexico.fragmentmain.FragmentMainSmall;
 import com.m68476521.mymexico.utilities.NetworkUtils;
 
 import org.json.JSONArray;
@@ -23,11 +27,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int TASK_LOADER_ID = 0;
     private Cursor cursor;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(getLayoutResId(0));
         //getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
 
         cursor = getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
@@ -60,6 +65,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             int descriptionIndex = cursor2.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION);
             String description = cursor2.getString(descriptionIndex);
             Log.d("MIKE", "swap cursorCD: " + description);
+        }
+
+        fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.main_frame);
+
+        if (fragment == null) {
+            fragment = createFragment();
+            fragmentManager.beginTransaction()
+                    .add(R.id.main_frame, fragment)
+                    .commit();
         }
     }
 
@@ -131,5 +146,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
         }
+    }
+
+    @LayoutRes
+    private int getLayoutResId(int layout) {
+        if (layout == 0) {
+            return R.layout.activity_main;
+        } else {
+//            return R.layout.fragment_master_container;
+            return 0;
+        }
+    }
+
+    protected Fragment createFragment() {
+        return new FragmentMainSmall();
     }
 }
