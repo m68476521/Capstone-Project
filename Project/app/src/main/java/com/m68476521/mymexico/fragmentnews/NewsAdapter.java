@@ -24,7 +24,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private Context context;
     private Cursor cursor;
 
-    public NewsAdapter(Activity context) {
+    private final OnItemClicked listener;
+
+    public NewsAdapter(Activity context, OnItemClicked listener) {
+        this.listener = listener;
         this.context = context;
     }
 
@@ -36,7 +39,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         cursor.moveToPosition(position);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME));
@@ -61,6 +64,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                     .placeholder(R.mipmap.ic_launcher)
                     .into(holder.imageViewBackGround);
         }
+
+        holder.imageViewFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MIKE", "clicked fav");
+                listener.onItemClick(v, position);
+            }
+        });
     }
 
     @Override
@@ -76,12 +87,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         public final TextView textViewTitle;
         public final TextView textViewShortDesc;
         public final ImageView imageViewBackGround;
+        public final ImageView imageViewFavorite;
 
         public ViewHolder(View view) {
             super(view);
             textViewTitle = view.findViewById(R.id.text_view_title);
             textViewShortDesc = view.findViewById(R.id.text_view_short_desc);
             imageViewBackGround = view.findViewById(R.id.image_view_poster);
+            imageViewFavorite = view.findViewById(R.id.image_view_fav);
         }
     }
 
@@ -93,5 +106,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         if (cursor != null) {
             this.notifyDataSetChanged();
         }
+    }
+
+    public interface OnItemClicked {
+        void onItemClick(View view, int position);
     }
 }

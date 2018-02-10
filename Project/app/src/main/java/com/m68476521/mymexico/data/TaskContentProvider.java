@@ -10,10 +10,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import static com.m68476521.mymexico.data.TaskContract.TaskEntry.CONTENT_URI;
+import static com.m68476521.mymexico.data.TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
 import static com.m68476521.mymexico.data.TaskContract.TaskEntry.CONTENT_URI_TRICKS;
 import static com.m68476521.mymexico.data.TaskContract.TaskEntry.TABLE_NAME;
+import static com.m68476521.mymexico.data.TaskContract.TaskEntry.TABLE_NAME_FAVORITES;
 import static com.m68476521.mymexico.data.TaskContract.TaskEntry.TABLE_NAME_TRICKS;
 
 /**
@@ -23,12 +26,16 @@ import static com.m68476521.mymexico.data.TaskContract.TaskEntry.TABLE_NAME_TRIC
 public class TaskContentProvider extends ContentProvider {
     public static final int NEWS = 100;
     public static final int TRICKS = 200;
+    public static final int FAVORITES = 300;
+    public static final int FAV_ITEM_WITH_ID = 301;
     private static final UriMatcher uriMatcher = buildUriMatcher();
 
     public static UriMatcher buildUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_NEWS, NEWS);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TRICKS, TRICKS);
+        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_FAVORITES, FAVORITES);
+        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_FAVORITES + "/#", FAV_ITEM_WITH_ID);
         return uriMatcher;
     }
 
@@ -62,6 +69,27 @@ public class TaskContentProvider extends ContentProvider {
                 retCursor = db.query(TABLE_NAME_TRICKS,
                         projection,
                         selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case FAVORITES:
+                Log.d("MIKE", "MIKE FAV ");
+                retCursor = db.query(TABLE_NAME_FAVORITES,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case FAV_ITEM_WITH_ID:
+                Log.d("MIKE", "MIKE FAV with id");
+                String id = uri.getPathSegments().get(1);
+                retCursor = db.query(TABLE_NAME_FAVORITES,
+                        projection,
+                        "id= '" + id + "'",
                         selectionArgs,
                         null,
                         null,
@@ -105,7 +133,14 @@ public class TaskContentProvider extends ContentProvider {
                     throw new android.database.SQLException("Failed to insert raw " + uri);
                 }
                 break;
-
+            case FAVORITES:
+                long id_fav = db.insert(TABLE_NAME_FAVORITES, null, values);
+                if (id_fav > 0) {
+                    returnUri = ContentUris.withAppendedId(CONTENT_URI_FAVORITES, id_fav);
+                } else {
+                    throw new android.database.SQLException("Failed to insert raw " + uri);
+                }
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
         }
@@ -116,7 +151,22 @@ public class TaskContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        final SQLiteDatabase db = taskDbHelper.getWritableDatabase();
+        int match = uriMatcher.match(uri);
+        int newsDeleted;
+        switch (match) {
+            case FAV_ITEM_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                newsDeleted = db.delete(TABLE_NAME_FAVORITES,
+                        "id=?", new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown Uri: " + uri);
+        }
+        if (newsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return newsDeleted;
     }
 
     @Override

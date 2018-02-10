@@ -44,6 +44,13 @@ public class TaskModelLoader extends AsyncTaskLoader<Cursor> {
                             null,
                             null);
                     break;
+                case 3:
+                    cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
+                            null,
+                            null,
+                            null,
+                            null);
+                    break;
                 default:
                     Log.d(TAG, " id query not found");
             }

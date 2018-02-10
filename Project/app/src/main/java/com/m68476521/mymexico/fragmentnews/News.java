@@ -1,6 +1,7 @@
 package com.m68476521.mymexico.fragmentnews;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
@@ -66,7 +68,15 @@ public class News extends Fragment {
                 GridLayoutManager.VERTICAL, false);
 
         fragmentNewsBinding.recyclerView.setLayoutManager(linearLayoutManager);
-        newsAdapter = new NewsAdapter(getActivity());
+
+        newsAdapter = new NewsAdapter(getActivity(), new NewsAdapter.OnItemClicked() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.d("MIKE", " CLICKED: " + Integer.toString(position));
+                setFavoriteNews(position);
+            }
+        });
+
         fragmentNewsBinding.recyclerView.setAdapter(newsAdapter);
 
         if (cursor != null) {
@@ -129,5 +139,50 @@ public class News extends Fragment {
 
     private void setupAdapterByCursor(Cursor cursor) {
         newsAdapter.swapCursor(cursor);
+    }
+
+    private void setFavoriteNews(int position) {
+        Cursor cursorResult = null;
+        cursor.moveToPosition(position);
+        String mId = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_ID));
+
+        Log.d("MIKE", "MIKE " + mId);
+        try {
+            Uri uri2 = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
+
+            uri2 = uri2.buildUpon().appendPath(mId).build();
+            cursorResult = getContext().getContentResolver().query(uri2,
+                    null,
+                    null,
+                    null,
+                    null);
+        } finally {
+            cursorResult.close();
+        }
+        int numberCount = cursorResult.getCount();
+        boolean isFav = numberCount > 0;
+
+        if (isFav) {
+            Log.d("MIKE", "MIKE is fav" + mId);
+            Uri uri = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
+            uri = uri.buildUpon().appendPath(mId).build();
+            getContext().getContentResolver().delete(uri, null, null);
+        } else {
+            Log.d("MIKE", "MIKE is not" + mId);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(TaskContract.TaskEntry.COLUMN_ID, mId);
+            contentValues.put(TaskContract.TaskEntry.COLUMN_NAME, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME)));
+            contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)));
+            contentValues.put(TaskContract.TaskEntry.COLUMN_IMAGE, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_IMAGE)));
+            contentValues.put(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED)));
+            Uri uri =
+                    getContext().getContentResolver().insert(
+                            TaskContract.TaskEntry.CONTENT_URI_FAVORITES, contentValues);
+
+            if (uri != null) {
+                Log.d("MIKE URL" , uri.toString());
+                Toast.makeText(getContext(), uri.toString(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
