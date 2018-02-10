@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view"
-    style="@style/MyCardViewStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginBottom="10dp"
-    android:shadowColor="@color/colorPrimaryDark"
-    android:stateListAnimator="@animator/click_raise">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_view"
+        style="@style/MyCardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:stateListAnimator="@animator/click_raise">
 
-        <ImageView
-            android:id="@+id/image_view_poster"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitXY"/>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_view_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/image_view_poster"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_size_xx"
-            tools:text="Item recipe"/>
+            <ImageView
+                android:id="@+id/image_view_poster"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"/>
 
-        <TextView
-            android:id="@+id/text_view_short_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/text_view_title"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:elevation="4dp"
-            android:gravity="left"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_size_x"
-            tools:text="Item recipe"/>
-    </RelativeLayout>
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/text_view_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_view_poster"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_xx"
+                tools:text="Item recipe"/>
+
+            <TextView
+                android:id="@+id/text_view_short_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/text_view_title"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:elevation="4dp"
+                android:gravity="left"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_x"
+                tools:text="Item recipe"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
