@@ -1,13 +1,13 @@
 package com.m68476521.mymexico.fragmentfav;
 
 import android.content.ContentValues;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +24,7 @@ import com.m68476521.mymexico.fragmentnews.NewsAdapter;
  * This fragment will be handling favorites for small devices
  */
 
-public class FragmentFavorite extends Fragment {
+public class FragmentFavorite extends Fragment{
     private FragmentFavoriteBinding fragmentFavoriteBinding;
     private Cursor cursor;
     private NewsAdapter newsAdapter;
@@ -45,10 +45,9 @@ public class FragmentFavorite extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentFavoriteBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
-                GridLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
-        fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(linearLayoutManager);
+        fragmentFavoriteBinding.recyclerViewFav.setHasFixedSize(true);
 
         newsAdapter = new NewsAdapter(getActivity(), new NewsAdapter.OnItemClicked() {
             @Override
@@ -60,8 +59,8 @@ public class FragmentFavorite extends Fragment {
 
         fragmentFavoriteBinding.recyclerViewFav.setAdapter(newsAdapter);
 
-        if (cursor != null) {
-            Log.d("MIKE on create", "favo");
+        fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(linearLayoutManager);
+        if (cursor != null && cursor.getCount() > 0) {
             Log.d("MIKE", "is not null");
             setupAdapterByCursor(cursor);
         }
@@ -117,7 +116,7 @@ public class FragmentFavorite extends Fragment {
                             TaskContract.TaskEntry.CONTENT_URI_FAVORITES, contentValues);
 
             if (uri != null) {
-                Log.d("MIKE URL" , uri.toString());
+                Log.d("MIKE URL", uri.toString());
                 Toast.makeText(getContext(), uri.toString(), Toast.LENGTH_LONG).show();
             }
         }
