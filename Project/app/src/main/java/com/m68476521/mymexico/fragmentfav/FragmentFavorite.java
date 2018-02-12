@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +25,7 @@ import com.m68476521.mymexico.fragmentnews.NewsAdapter;
  * This fragment will be handling favorites for small devices
  */
 
-public class FragmentFavorite extends Fragment{
+public class FragmentFavorite extends Fragment {
     private FragmentFavoriteBinding fragmentFavoriteBinding;
     private Cursor cursor;
     private NewsAdapter newsAdapter;
@@ -38,6 +39,12 @@ public class FragmentFavorite extends Fragment{
                 null,
                 null,
                 TaskContract.TaskEntry.COLUMN_ID);
+
+        MyObserver myObserver = new MyObserver(new Handler());
+        getContext().getContentResolver().registerContentObserver(
+                TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
+                true, myObserver
+        );
     }
 
     @Nullable
@@ -65,11 +72,11 @@ public class FragmentFavorite extends Fragment{
             setupAdapterByCursor(cursor);
         }
 
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            int descriptionIndex = cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME);
-            String name = cursor.getString(descriptionIndex);
-            Log.d("MIKE FAV", "data got it: " + name);
-        }
+//        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+//            int descriptionIndex = cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME);
+//            String name = cursor.getString(descriptionIndex);
+//            Log.d("MIKE FAV", "data got it: " + name);
+//        }
         return fragmentFavoriteBinding.getRoot();
     }
 
@@ -119,6 +126,32 @@ public class FragmentFavorite extends Fragment{
                 Log.d("MIKE URL", uri.toString());
                 Toast.makeText(getContext(), uri.toString(), Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    class MyObserver extends ContentObserver {
+        public MyObserver(Handler handler) {
+            super(handler);
+            Log.d("MIKE", "on CreateObserver");
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            Log.d("MIKE", "onChangeA");
+        }
+
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            super.onChange(selfChange, uri);
+            Log.d("MIKE", "onChangeB");
+            cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
+                    null,
+                    null,
+                    null,
+                    TaskContract.TaskEntry.COLUMN_ID);
+            setupAdapterByCursor(cursor);
         }
     }
 }
