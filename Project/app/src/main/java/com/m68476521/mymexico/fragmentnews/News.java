@@ -47,16 +47,15 @@ public class News extends Fragment {
                 null,
                 TaskContract.TaskEntry.COLUMN_ID);
         if (cursor == null || cursor.getCount() == 0) {
+            Log.d("MIKE get API ", "from news");
             getApiData();
         }
 
-//        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-//            int descriptionIndex = cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME);
-//            String name = cursor.getString(descriptionIndex);
-//            Log.d("MIKE", "data got it: " + name);
-//        }
-
-
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            int descriptionIndex = cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME);
+            String name = cursor.getString(descriptionIndex);
+            Log.d("MIKE", "data got it: " + name);
+        }
     }
 
     @Nullable
@@ -80,7 +79,7 @@ public class News extends Fragment {
         fragmentNewsBinding.recyclerView.setAdapter(newsAdapter);
 
         if (cursor != null) {
-            Log.d("MIKE", "is not null");
+            Log.d("MIKE", "is not null from news");
             setupAdapterByCursor(cursor);
         }
         return fragmentNewsBinding.getRoot();
@@ -96,7 +95,7 @@ public class News extends Fragment {
 
         @Override
         protected String doInBackground(URL... urls) {
-            Log.d("MIKE ", "doInBackground");
+            Log.d("MIKE ", "doInBackground from News");
             try {
                 NetworkUtils networkUtils = new NetworkUtils();
                 result = networkUtils.getDataFromApi();
@@ -112,7 +111,7 @@ public class News extends Fragment {
                         String description = innerObject.getString(TaskContract.TaskEntry.COLUMN_DESCRIPTION);
                         String image = innerObject.getString(TaskContract.TaskEntry.COLUMN_IMAGE);
                         String lastModified = innerObject.getString(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED);
-                        Log.d("MIKE:: ", name + id + description + image + lastModified);
+                        Log.d("MIKE:: ", name +"|" + id +"|" + description +"|" + image +"|" + lastModified);
 
                         ContentValues contentValues = new ContentValues();
                         contentValues.put(TaskContract.TaskEntry.COLUMN_ID, id);
@@ -122,6 +121,18 @@ public class News extends Fragment {
                         contentValues.put(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED, lastModified);
 
                         Uri uri = getContext().getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI, contentValues);
+                    }
+
+                    Log.d("MIKE done call", " the cursor");
+                    cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            TaskContract.TaskEntry.COLUMN_ID);
+
+                    if (cursor != null) {
+                        Log.d("MIKE", "is not null from news");
+                        setupAdapterByCursor(cursor);
                     }
                 }
 
