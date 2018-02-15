@@ -68,6 +68,14 @@ public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> 
                 listener.onItemClick(v, position);
             }
         });
+
+        holder.imageViewBackGround.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MIKE", "clicked fav");
+                listener.onItemClick(v, position);
+            }
+        });
     }
 
     @Override
