@@ -9,6 +9,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.m68476521.mymexico.R;
@@ -19,7 +20,11 @@ import com.m68476521.mymexico.R;
 
 public class CustomBottomSheet extends BottomSheetDialogFragment {
 
-    private String bodyText;
+    private String bodyQuestion;
+    private String bodyAnswer;
+    private String bodyFakeA;
+    private String bodyFakeB;
+
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
         @Override
@@ -49,12 +54,24 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
         }
 
         TextView textView = contentView.findViewById(R.id.body_question);
-        textView.setText(bodyText);
+        textView.setText(bodyQuestion);
+
+        RadioButton radioButtonA = contentView.findViewById(R.id.radio_answer1);
+        radioButtonA.setText(bodyAnswer);
+
+        RadioButton radioButtonB = contentView.findViewById(R.id.radio_answer2);
+        radioButtonB.setText(bodyFakeA);
+
+        RadioButton radioButtonC = contentView.findViewById(R.id.radio_answer3);
+        radioButtonC.setText(bodyFakeB);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bodyText = getArguments().getString("bodyTextCompleted");
+        bodyQuestion = getArguments().getString("bodyQuestion");
+        bodyAnswer = getArguments().getString("bodyAnswer");
+        bodyFakeA = getArguments().getString("bodyFakeA");
+        bodyFakeB = getArguments().getString("bodyFakeB");
     }
 }

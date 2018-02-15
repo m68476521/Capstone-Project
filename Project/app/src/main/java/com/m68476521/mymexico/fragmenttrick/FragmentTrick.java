@@ -68,9 +68,14 @@ public class FragmentTrick extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 Log.d("MIKE clickec on ima", Integer.toString(position));
+                cursor.moveToPosition(position);
                 BottomSheetDialogFragment bottomSheetDialogFragment = new CustomBottomSheet();
                 Bundle args = new Bundle();
-                args.putString("bodyTextCompleted", "mike text");
+                args.putString("bodyQuestion", cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION)));
+                args.putString("bodyFakeA", cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A)));
+                args.putString("bodyFakeB", cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B)));
+                args.putString("bodyAnswer", cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_ANSWER)));
+
                 bottomSheetDialogFragment.setArguments(args);
                 bottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
             }
