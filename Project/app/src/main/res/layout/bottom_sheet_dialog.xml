@@ -26,6 +26,7 @@
         android:textSize="@dimen/text_size_20"/>
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/group_radio"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/body_question"
@@ -33,7 +34,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="25dp"
                 android:layout_marginTop="25dp"
-                android:gravity="center_horizontal"
+                android:gravity="left"
                 android:orientation="vertical">
 
         <RadioButton
@@ -68,4 +69,16 @@
             android:textSize="@dimen/text_size_18"
             android:textColor="@color/colorPrimary"/>
     </RadioGroup>
+
+    <Button
+        android:id="@+id/button_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/check_answer"
+        android:layout_below="@+id/group_radio"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/colorPrimary"
+        style="@style/PrimaryButton"/>
 </RelativeLayout>
