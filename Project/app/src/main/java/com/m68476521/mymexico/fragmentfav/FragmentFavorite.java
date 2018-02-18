@@ -14,12 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
 import com.m68476521.mymexico.databinding.FragmentFavoriteBinding;
 import com.m68476521.mymexico.fragmentnews.NewsAdapter;
+import com.m68476521.mymexico.fragmentnews.NewsItemClickListener;
 
 /**
  * This fragment will be handling favorites for small devices
@@ -61,6 +63,11 @@ public class FragmentFavorite extends Fragment {
             public void onItemClick(View view, int position) {
                 Log.d("MIKE", " CLICKED: " + Integer.toString(position));
                 setFavoriteNews(position);
+            }
+        }, new NewsItemClickListener() {
+            @Override
+            public void onlItemClick(int pos, ImageView shareImageView) {
+                Log.d("MIKE clicked image", Integer.toString(pos));
             }
         });
 

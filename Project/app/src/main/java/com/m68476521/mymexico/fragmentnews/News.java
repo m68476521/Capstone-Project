@@ -9,17 +9,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
 import com.m68476521.mymexico.databinding.FragmentNewsBinding;
+import com.m68476521.mymexico.fragmentNewsDetails.NewsViewPagerFragment;
 import com.m68476521.mymexico.utilities.NetworkUtils;
 
 import org.json.JSONArray;
@@ -32,7 +35,7 @@ import java.net.URL;
  */
 
 public class News extends Fragment {
-
+    public static final String TAG = News.class.getSimpleName();
     private FragmentNewsBinding fragmentNewsBinding;
     private Cursor cursor;
     private NewsAdapter newsAdapter;
@@ -73,6 +76,19 @@ public class News extends Fragment {
             public void onItemClick(View view, int position) {
                 Log.d("MIKE", " CLICKED: " + Integer.toString(position));
                 setFavoriteNews(position);
+            }
+        }, new NewsItemClickListener() {
+            @Override
+            public void onlItemClick(int pos, ImageView shareImageView) {
+                Log.d("MIKE", " imageClicles " + Integer.toString(pos));
+
+                Fragment animalViewPagerFragment = NewsViewPagerFragment.newInstance(pos);
+                getFragmentManager()
+                        .beginTransaction()
+                        .addSharedElement(shareImageView, ViewCompat.getTransitionName(shareImageView))
+                        .addToBackStack(TAG)
+                        .replace(R.id.main_frame, animalViewPagerFragment)
+                        .commit();
             }
         });
 

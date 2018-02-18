@@ -3,6 +3,7 @@ package com.m68476521.mymexico.fragmentnews;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,23 +24,23 @@ import com.squareup.picasso.Picasso;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private Context context;
     private Cursor cursor;
-
+    private final NewsItemClickListener newsItemClickListener;
     private final OnItemClicked listener;
 
-    public NewsAdapter(Activity context, OnItemClicked listener) {
+    public NewsAdapter(Activity context, OnItemClicked listener, NewsItemClickListener newsItemClickListener) {
         this.listener = listener;
         this.context = context;
+        this.newsItemClickListener = newsItemClickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_news, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_news, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME));
@@ -50,7 +51,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.textViewShortDesc.setText(desc);
         Log.d("MIKE desc", desc);
 
-        Picasso.with(context)
+        Picasso.with(holder.itemView.getContext())
                 .load(R.drawable.ic_launcher_background)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.imageViewBackGround);
@@ -69,7 +70,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Log.d("MIKE", "clicked fav");
-                listener.onItemClick(v, position);
+                listener.onItemClick(v, holder.getAdapterPosition());
+            }
+        });
+
+        Log.d("MIKE imageTransi name:", title);
+        ViewCompat.setTransitionName(holder.imageViewBackGround, title);
+
+        holder.imageViewBackGround.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newsItemClickListener.onlItemClick(holder.getAdapterPosition(), holder.imageViewBackGround);
             }
         });
     }
