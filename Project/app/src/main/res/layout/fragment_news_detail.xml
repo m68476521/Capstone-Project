@@ -10,7 +10,7 @@
     android:gravity="top">
 
     <ImageView
-        android:id="@+id/animal_detail_image_view"
+        android:id="@+id/news_detail_image_view"
         android:layout_alignParentTop="true"
         app:layout_heightPercent="68.2%"
         app:layout_widthPercent="100%"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/animal_detail_image_view"
+        android:layout_below="@+id/news_detail_image_view"
         android:background="#CC000000"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
@@ -29,7 +29,7 @@
         android:paddingTop="16dp">
 
         <TextView
-            android:id="@+id/animal_detail_text"
+            android:id="@+id/news_detail_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"

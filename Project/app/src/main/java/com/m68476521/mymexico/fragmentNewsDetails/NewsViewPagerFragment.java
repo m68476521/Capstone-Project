@@ -20,10 +20,7 @@ import com.m68476521.mymexico.data.TaskContract;
  */
 
 public class NewsViewPagerFragment extends Fragment {
-
-
     private static final String EXTRA_INITIAL_ITEM_POS = "initial_item_pos";
-    private static final String EXTRA_ANIMAL_ITEMS = "animal_items";
     private Cursor cursor;
 
     public NewsViewPagerFragment() {
@@ -31,11 +28,11 @@ public class NewsViewPagerFragment extends Fragment {
     }
 
     public static NewsViewPagerFragment newInstance(int currentItem) {
-        NewsViewPagerFragment animalViewPagerFragment = new NewsViewPagerFragment();
+        NewsViewPagerFragment newsViewPagerFragment = new NewsViewPagerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_INITIAL_ITEM_POS, currentItem);
-        animalViewPagerFragment.setArguments(bundle);
-        return animalViewPagerFragment;
+        newsViewPagerFragment.setArguments(bundle);
+        return newsViewPagerFragment;
     }
 
     @Override
@@ -67,10 +64,10 @@ public class NewsViewPagerFragment extends Fragment {
                 null,
                 TaskContract.TaskEntry.COLUMN_ID);
 
-        NewsPageAdapter animalPagerAdapter = new NewsPageAdapter(getChildFragmentManager(), getContext());
+        NewsPageAdapter newsPageAdapter = new NewsPageAdapter(getChildFragmentManager(), getContext());
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.animal_view_pager);
-        viewPager.setAdapter(animalPagerAdapter);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.news_view_pager);
+        viewPager.setAdapter(newsPageAdapter);
         viewPager.setCurrentItem(currentItem);
     }
 }

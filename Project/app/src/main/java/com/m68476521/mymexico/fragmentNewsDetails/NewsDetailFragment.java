@@ -72,13 +72,13 @@ public class NewsDetailFragment extends Fragment {
 
         cursor.moveToPosition(position);
 
-        TextView detailTextView = (TextView) view.findViewById(R.id.animal_detail_text);
+        TextView detailTextView = (TextView) view.findViewById(R.id.news_detail_text);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME));
 
         detailTextView.setText(title);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.animal_detail_image_view);
+        ImageView imageView = (ImageView) view.findViewById(R.id.news_detail_image_view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.d("MIKE tag", "B");
             imageView.setTransitionName(transitionName);

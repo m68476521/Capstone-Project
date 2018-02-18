@@ -82,12 +82,12 @@ public class News extends Fragment {
             public void onlItemClick(int pos, ImageView shareImageView) {
                 Log.d("MIKE", " imageClicles " + Integer.toString(pos));
 
-                Fragment animalViewPagerFragment = NewsViewPagerFragment.newInstance(pos);
+                Fragment newsViewPagerFragment = NewsViewPagerFragment.newInstance(pos);
                 getFragmentManager()
                         .beginTransaction()
                         .addSharedElement(shareImageView, ViewCompat.getTransitionName(shareImageView))
                         .addToBackStack(TAG)
-                        .replace(R.id.main_frame, animalViewPagerFragment)
+                        .replace(R.id.main_frame, newsViewPagerFragment)
                         .commit();
             }
         });
