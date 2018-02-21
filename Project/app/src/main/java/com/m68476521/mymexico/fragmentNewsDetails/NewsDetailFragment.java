@@ -72,11 +72,14 @@ public class NewsDetailFragment extends Fragment {
 
         cursor.moveToPosition(position);
 
-        TextView detailTextView = (TextView) view.findViewById(R.id.news_detail_text);
+        TextView nameTextView = (TextView) view.findViewById(R.id.news_name_text);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME));
 
-        detailTextView.setText(title);
+        nameTextView.setText(title);
+
+        TextView detailTextView = view.findViewById(R.id.news_detail_text);
+        detailTextView.setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)));
 
         ImageView imageView = (ImageView) view.findViewById(R.id.news_detail_image_view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

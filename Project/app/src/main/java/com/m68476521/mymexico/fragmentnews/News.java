@@ -6,10 +6,10 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -39,6 +39,25 @@ public class News extends Fragment {
     private FragmentNewsBinding fragmentNewsBinding;
     private Cursor cursor;
     private NewsAdapter newsAdapter;
+    NewsItemClickListener newsItemClickListener;
+
+    public static News newInstance(NewsItemClickListener newsItemClickListener) {
+        Bundle args = new Bundle();
+//        args.putSerializable(ARG_MOVIE_ID, id);
+        News fragment = new News();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            newsItemClickListener = (NewsItemClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " MIKE must implement OnArticleSelectedListener");
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +80,31 @@ public class News extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("MIKE", " onREsume");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("MIKE", " onStart");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("MIKE", " onPasue");
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("MIKE", " onDestroy");
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,14 +125,7 @@ public class News extends Fragment {
             @Override
             public void onlItemClick(int pos, ImageView shareImageView) {
                 Log.d("MIKE", " imageClicles " + Integer.toString(pos));
-
-                Fragment newsViewPagerFragment = NewsViewPagerFragment.newInstance(pos);
-                getFragmentManager()
-                        .beginTransaction()
-                        .addSharedElement(shareImageView, ViewCompat.getTransitionName(shareImageView))
-                        .addToBackStack(TAG)
-                        .replace(R.id.main_frame, newsViewPagerFragment)
-                        .commit();
+                newsItemClickListener.onlItemClick(pos, shareImageView);
             }
         });
 
@@ -127,7 +164,7 @@ public class News extends Fragment {
                         String description = innerObject.getString(TaskContract.TaskEntry.COLUMN_DESCRIPTION);
                         String image = innerObject.getString(TaskContract.TaskEntry.COLUMN_IMAGE);
                         String lastModified = innerObject.getString(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED);
-                        Log.d("MIKE:: ", name +"|" + id +"|" + description +"|" + image +"|" + lastModified);
+                        Log.d("MIKE:: ", name + "|" + id + "|" + description + "|" + image + "|" + lastModified);
 
                         ContentValues contentValues = new ContentValues();
                         contentValues.put(TaskContract.TaskEntry.COLUMN_ID, id);
@@ -207,7 +244,7 @@ public class News extends Fragment {
                             TaskContract.TaskEntry.CONTENT_URI_FAVORITES, contentValues);
 
             if (uri != null) {
-                Log.d("MIKE URL" , uri.toString());
+                Log.d("MIKE URL", uri.toString());
                 Toast.makeText(getContext(), uri.toString(), Toast.LENGTH_LONG).show();
             }
         }
