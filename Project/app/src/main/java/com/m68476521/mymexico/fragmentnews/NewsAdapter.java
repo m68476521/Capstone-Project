@@ -75,12 +75,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         });
 
         Log.d("MIKE imageTransi name:", title);
-        ViewCompat.setTransitionName(holder.imageViewBackGround, title);
 
+        ViewCompat.setTransitionName(holder.imageViewBackGround, title);
         holder.imageViewBackGround.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newsItemClickListener.onlItemClick(holder.getAdapterPosition(), holder.imageViewBackGround);
+                Log.d("MIKE 24", "posterClicked");
+                newsItemClickListener.onlItemClick(holder.getAdapterPosition(), holder.imageViewBackGround, v);
             }
         });
     }

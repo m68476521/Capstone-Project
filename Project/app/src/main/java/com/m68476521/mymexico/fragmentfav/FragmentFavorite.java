@@ -66,7 +66,7 @@ public class FragmentFavorite extends Fragment {
             }
         }, new NewsItemClickListener() {
             @Override
-            public void onlItemClick(int pos, ImageView shareImageView) {
+            public void onlItemClick(int pos, ImageView shareImageView, View view) {
                 Log.d("MIKE clicked image", Integer.toString(pos));
             }
         });

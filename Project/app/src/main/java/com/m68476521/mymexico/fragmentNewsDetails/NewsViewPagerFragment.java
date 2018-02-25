@@ -1,5 +1,6 @@
 package com.m68476521.mymexico.fragmentNewsDetails;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,16 +23,20 @@ import com.m68476521.mymexico.data.TaskContract;
 public class NewsViewPagerFragment extends Fragment {
     private static final String EXTRA_INITIAL_ITEM_POS = "initial_item_pos";
     private Cursor cursor;
+    private ViewPager viewPager;
 
     public NewsViewPagerFragment() {
 
     }
 
-    public static NewsViewPagerFragment newInstance(int currentItem) {
+    public static NewsViewPagerFragment newInstance(int currentItem, Context context) {
         NewsViewPagerFragment newsViewPagerFragment = new NewsViewPagerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_INITIAL_ITEM_POS, currentItem);
         newsViewPagerFragment.setArguments(bundle);
+        newsViewPagerFragment.setEnterTransition(TransitionInflater.from(context).inflateTransition(R.transition.slide_bottom));
+        newsViewPagerFragment.setReenterTransition(TransitionInflater.from(context).inflateTransition(R.transition.slide_left));
+        newsViewPagerFragment.setExitTransition(TransitionInflater.from(context).inflateTransition(R.transition.slide_left));
         return newsViewPagerFragment;
     }
 
@@ -66,7 +71,7 @@ public class NewsViewPagerFragment extends Fragment {
 
         NewsPageAdapter newsPageAdapter = new NewsPageAdapter(getChildFragmentManager(), getContext());
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.news_view_pager);
+        viewPager = (ViewPager) view.findViewById(R.id.news_view_pager);
         viewPager.setAdapter(newsPageAdapter);
         viewPager.setCurrentItem(currentItem);
     }

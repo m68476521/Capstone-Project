@@ -1,5 +1,6 @@
 package com.m68476521.mymexico.fragmentnews;
 
+import android.view.View;
 import android.widget.ImageView;
 
 /**
@@ -7,5 +8,6 @@ import android.widget.ImageView;
  */
 
 public interface NewsItemClickListener {
-    void onlItemClick(int pos, ImageView shareImageView);
+    void onlItemClick(int pos, ImageView shareImageView, View view
+    );
 }

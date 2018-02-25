@@ -10,8 +10,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.SharedElementCallback;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.m68476521.mymexico.MainActivity;
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
 import com.m68476521.mymexico.databinding.FragmentNewsBinding;
@@ -29,6 +34,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Fragment to shows news.
@@ -123,9 +130,9 @@ public class News extends Fragment {
             }
         }, new NewsItemClickListener() {
             @Override
-            public void onlItemClick(int pos, ImageView shareImageView) {
+            public void onlItemClick(int pos, ImageView shareImageView, View v) {
                 Log.d("MIKE", " imageClicles " + Integer.toString(pos));
-                newsItemClickListener.onlItemClick(pos, shareImageView);
+                newsItemClickListener.onlItemClick(pos, shareImageView, v);
             }
         });
 

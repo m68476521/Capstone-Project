@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.m68476521.mymexico.fragmentNewsDetails.NewsViewPagerFragment;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
     private static final int TASK_LOADER_ID = 0;
     private Cursor cursor;
     FragmentManager fragmentManager;
+    public static int currentPosition;
+
+    Fragment newsViewPagerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,25 +56,24 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
     }
 
     @Override
-    public void onlItemClick(int pos, ImageView shareImageView) {
+    public void onlItemClick(int pos, ImageView shareImageView, View view) {
         Log.d("MIKE MAINACTIVITY", Integer.toString(pos) + " " + shareImageView.toString());
 
-        Fragment newsViewPagerFragment = NewsViewPagerFragment.newInstance(pos);
+        newsViewPagerFragment = NewsViewPagerFragment.newInstance(pos, this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d("MIKE", "add transtision");
-//                    newsViewPagerFragment.setSharedElementEnterTransition(new DetailsTransition());
-//                    newsViewPagerFragment.setEnterTransition(new Fade());
-//                    getWindow().setExitTransition(new Fade());
-//                    newsViewPagerFragment.setSharedElementReturnTransition(new DetailsTransition());
+            Log.d("MIKE", "add transtision MIKE");
+//            newsViewPagerFragment.setSharedElementEnterTransition(new DetailsTransition());
+//            newsViewPagerFragment.setEnterTransition(new Fade());
+//            getWindow().setExitTransition(new Fade());
+//            newsViewPagerFragment.setSharedElementReturnTransition(new DetailsTransition());
         }
 
         fragmentManager
                 .beginTransaction()
                 .addSharedElement(shareImageView, ViewCompat.getTransitionName(shareImageView))
-//                        .re
                 .replace(R.id.main_frame, newsViewPagerFragment)
-                .addToBackStack("MIKE")
+                .addToBackStack(null)
                 .commit();
     }
 }
