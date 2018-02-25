@@ -28,7 +28,7 @@ public class FragmentMainSmall extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentMainSmallBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_small, container,false);
-        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getContext(), getFragmentManager());
+        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getContext(), getChildFragmentManager());
         fragmentMainSmallBinding.viewpager.setAdapter(adapter);
         fragmentMainSmallBinding.slidingTabs.setupWithViewPager(fragmentMainSmallBinding.viewpager);
         return fragmentMainSmallBinding.getRoot();
