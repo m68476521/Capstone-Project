@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.transition.Explode;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
+import com.m68476521.mymexico.transitions.DetailsTransition;
 
 /**
  * Created by mike on 2/15/18.
@@ -34,9 +36,9 @@ public class NewsViewPagerFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_INITIAL_ITEM_POS, currentItem);
         newsViewPagerFragment.setArguments(bundle);
-        newsViewPagerFragment.setEnterTransition(TransitionInflater.from(context).inflateTransition(R.transition.slide_bottom));
+        newsViewPagerFragment.setEnterTransition(new Explode());
         newsViewPagerFragment.setReenterTransition(TransitionInflater.from(context).inflateTransition(R.transition.slide_left));
-        newsViewPagerFragment.setExitTransition(TransitionInflater.from(context).inflateTransition(R.transition.slide_left));
+        newsViewPagerFragment.setExitTransition(TransitionInflater.from(context).inflateTransition(R.transition.slide_bottom));
         return newsViewPagerFragment;
     }
 

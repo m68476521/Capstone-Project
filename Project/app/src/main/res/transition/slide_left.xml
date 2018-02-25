@@ -5,5 +5,6 @@
         <target android:excludeId="@android:id/navigationBarBackground"/>
     </targets>
     <slide
-        android:slideEdge="left"/>
+        android:slideEdge="left"
+        android:duration="340"/>
 </transitionSet>
