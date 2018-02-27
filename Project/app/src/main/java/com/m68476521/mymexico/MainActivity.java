@@ -56,10 +56,9 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
     }
 
     @Override
-    public void onlItemClick(int pos, ImageView shareImageView, View view) {
+    public void onlItemClick(String section, int pos, ImageView shareImageView, View view) {
         Log.d("MIKE MAINACTIVITY", Integer.toString(pos) + " " + shareImageView.toString());
-
-        newsViewPagerFragment = NewsViewPagerFragment.newInstance(pos, this);
+        newsViewPagerFragment = NewsViewPagerFragment.newInstance(section ,pos, this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.d("MIKE", "add transtision MIKE");

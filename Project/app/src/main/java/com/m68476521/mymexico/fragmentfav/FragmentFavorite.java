@@ -1,6 +1,7 @@
 package com.m68476521.mymexico.fragmentfav;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
@@ -31,11 +32,21 @@ public class FragmentFavorite extends Fragment {
     private FragmentFavoriteBinding fragmentFavoriteBinding;
     private Cursor cursor;
     private NewsAdapter newsAdapter;
+    NewsItemClickListener newsItemClickListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            newsItemClickListener = (NewsItemClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " MIKE must implement OnArticleSelectedListener");
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("MIKE on create", "favo");
         cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
                 null,
                 null,
@@ -66,8 +77,8 @@ public class FragmentFavorite extends Fragment {
             }
         }, new NewsItemClickListener() {
             @Override
-            public void onlItemClick(int pos, ImageView shareImageView, View view) {
-                Log.d("MIKE clicked image", Integer.toString(pos));
+            public void onlItemClick(String section, int pos, ImageView shareImageView, View view) {
+                newsItemClickListener.onlItemClick("FAVORITES", pos, shareImageView, view);
             }
         });
 

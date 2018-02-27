@@ -24,17 +24,20 @@ import com.m68476521.mymexico.transitions.DetailsTransition;
 
 public class NewsViewPagerFragment extends Fragment {
     private static final String EXTRA_INITIAL_ITEM_POS = "initial_item_pos";
+    private static final String EXTRA_SECTION = "section";
     private Cursor cursor;
     private ViewPager viewPager;
+    private String section;
 
     public NewsViewPagerFragment() {
 
     }
 
-    public static NewsViewPagerFragment newInstance(int currentItem, Context context) {
+    public static NewsViewPagerFragment newInstance(String section, int currentItem, Context context) {
         NewsViewPagerFragment newsViewPagerFragment = new NewsViewPagerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_INITIAL_ITEM_POS, currentItem);
+        bundle.putString(EXTRA_SECTION, section);
         newsViewPagerFragment.setArguments(bundle);
         newsViewPagerFragment.setEnterTransition(new Explode());
         newsViewPagerFragment.setReenterTransition(TransitionInflater.from(context).inflateTransition(R.transition.slide_left));
@@ -51,6 +54,9 @@ public class NewsViewPagerFragment extends Fragment {
             setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
         }
         setSharedElementReturnTransition(null);
+        if (getArguments().containsKey(EXTRA_SECTION)) {
+            section = getArguments().getString(EXTRA_SECTION);
+        }
     }
 
     @Override
@@ -65,13 +71,7 @@ public class NewsViewPagerFragment extends Fragment {
 
         int currentItem = getArguments().getInt(EXTRA_INITIAL_ITEM_POS);
 
-        cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                TaskContract.TaskEntry.COLUMN_ID);
-
-        NewsPageAdapter newsPageAdapter = new NewsPageAdapter(getChildFragmentManager(), getContext());
+        NewsPageAdapter newsPageAdapter = new NewsPageAdapter(section, getChildFragmentManager(), getContext());
 
         viewPager = (ViewPager) view.findViewById(R.id.news_view_pager);
         viewPager.setAdapter(newsPageAdapter);

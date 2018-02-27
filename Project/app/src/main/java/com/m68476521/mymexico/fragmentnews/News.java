@@ -130,9 +130,8 @@ public class News extends Fragment {
             }
         }, new NewsItemClickListener() {
             @Override
-            public void onlItemClick(int pos, ImageView shareImageView, View v) {
-                Log.d("MIKE", " imageClicles " + Integer.toString(pos));
-                newsItemClickListener.onlItemClick(pos, shareImageView, v);
+            public void onlItemClick(String section,int pos, ImageView shareImageView, View v) {
+                newsItemClickListener.onlItemClick(section,pos, shareImageView, v);
             }
         });
 

@@ -8,6 +8,6 @@ import android.widget.ImageView;
  */
 
 public interface NewsItemClickListener {
-    void onlItemClick(int pos, ImageView shareImageView, View view
+    void onlItemClick(String section, int pos, ImageView shareImageView, View view
     );
 }

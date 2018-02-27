@@ -25,17 +25,22 @@ import com.squareup.picasso.Picasso;
 public class NewsDetailFragment extends Fragment {
     private static final String EXTRA_NEWS_POSITION = "news_position";
     private static final String EXTRA_TRANSITION_NAME = "transition_name";
+    private static final String EXTRA_SECTION = "section";
+    private static final String EXTRA_SECTION_NEWS = "NEWS";
+    private static final String EXTRA_SECTION_FAVORITES = "FAVORITES";
     private Cursor cursor;
+    private String section;
 
     public NewsDetailFragment() {
         // Required empty public constructor
     }
 
-    public static NewsDetailFragment newInstance(int newsPosition, String transitionName) {
+    public static NewsDetailFragment newInstance(String section, int newsPosition, String transitionName) {
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_NEWS_POSITION, newsPosition);
         bundle.putString(EXTRA_TRANSITION_NAME, transitionName);
+        bundle.putString(EXTRA_SECTION, section);
         newsDetailFragment.setArguments(bundle);
         return newsDetailFragment;
     }
@@ -48,6 +53,10 @@ public class NewsDetailFragment extends Fragment {
             Log.d("MIKE tag", "A");
             setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
         }
+
+        if (getArguments().containsKey(EXTRA_SECTION)) {
+            section = getArguments().getString(EXTRA_SECTION);
+        }
     }
 
     @Override
@@ -59,12 +68,19 @@ public class NewsDetailFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                TaskContract.TaskEntry.COLUMN_ID);
+        if (section.equals(EXTRA_SECTION_NEWS)) {
+            cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    TaskContract.TaskEntry.COLUMN_ID);
+        } else {
+            cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
+                    null,
+                    null,
+                    null,
+                    TaskContract.TaskEntry.COLUMN_ID);
+        }
 
 
         Integer position = getArguments().getInt(EXTRA_NEWS_POSITION);
