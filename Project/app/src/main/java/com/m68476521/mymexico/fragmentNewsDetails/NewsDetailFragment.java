@@ -88,7 +88,7 @@ public class NewsDetailFragment extends Fragment {
 
         cursor.moveToPosition(position);
 
-        TextView nameTextView = (TextView) view.findViewById(R.id.news_name_text);
+        TextView nameTextView = view.findViewById(R.id.news_name_text);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME));
 
@@ -97,11 +97,14 @@ public class NewsDetailFragment extends Fragment {
         TextView detailTextView = view.findViewById(R.id.news_detail_text);
         detailTextView.setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)));
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.news_detail_image_view);
+        ImageView imageView = view.findViewById(R.id.news_detail_image_view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.d("MIKE tag", "B");
             imageView.setTransitionName(transitionName);
         }
+
+        TextView category = view.findViewById(R.id.category_text_view);
+        category.setText("CategoryExample");
 
         Picasso.with(getContext())
                 .load(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_IMAGE)))
