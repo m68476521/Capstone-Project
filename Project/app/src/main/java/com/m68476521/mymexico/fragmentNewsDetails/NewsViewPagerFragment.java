@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.m68476521.mymexico.R;
-import com.m68476521.mymexico.data.TaskContract;
-import com.m68476521.mymexico.transitions.DetailsTransition;
 
 /**
  * Created by mike on 2/15/18.
