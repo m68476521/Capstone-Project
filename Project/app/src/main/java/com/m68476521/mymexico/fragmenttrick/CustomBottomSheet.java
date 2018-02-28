@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -19,7 +21,6 @@ import com.m68476521.mymexico.R;
  */
 
 public class CustomBottomSheet extends BottomSheetDialogFragment {
-
     private String bodyQuestion;
     private String bodyAnswer;
     private String bodyFakeA;
@@ -64,6 +65,15 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
 
         RadioButton radioButtonC = contentView.findViewById(R.id.radio_answer3);
         radioButtonC.setText(bodyFakeB);
+
+        Button checkButton = contentView.findViewById(R.id.button_check);
+
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEditDialog();
+            }
+        });
     }
 
     @Override
@@ -74,4 +84,12 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
         bodyFakeA = getArguments().getString("bodyFakeA");
         bodyFakeB = getArguments().getString("bodyFakeB");
     }
+
+    private void showEditDialog() {
+        FragmentManager fm = getFragmentManager();
+        String message = "this is an message example example exmaple example example example qwe";
+        VerifyDialogFragment editNameDialogFragment = VerifyDialogFragment.newInstance("Some Title", message);
+        editNameDialogFragment.show(fm, "fragment_edit_name");
+    }
+
 }
