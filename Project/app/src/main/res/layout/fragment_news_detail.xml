@@ -81,8 +81,9 @@
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginTop="28dp"
-            android:clipToPadding="false"
+            android:clipToPadding="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -94,6 +95,7 @@
                     android:id="@+id/news_detail_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="56dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
@@ -106,5 +108,17 @@
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/share_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/action_share"
+            android:src="@drawable/ic_share"
+            app:elevation="4dp"
+            app:pressedTranslationZ="6dp"/>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

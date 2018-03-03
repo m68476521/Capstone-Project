@@ -1,5 +1,6 @@
 package com.m68476521.mymexico.fragmentNewsDetails;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -7,7 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionInflater;
 import android.util.Log;
@@ -149,6 +152,16 @@ public class NewsDetailFragment extends Fragment {
                         startPostponedEnterTransition();
                     }
                 });
+
+        binding.shareFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
+                        .setType("text/plain")
+                        .setText("Some sample text")
+                        .getIntent(), getString(R.string.action_share)));
+            }
+        });
         return binding.getRoot();
     }
 }
