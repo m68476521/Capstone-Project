@@ -81,7 +81,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Log.d("MIKE 24", "posterClicked");
-                newsItemClickListener.onlItemClick("removeThisMike", holder.getAdapterPosition(), holder.imageViewBackGround, v);
+                newsItemClickListener.onlItemClick("NEWS", holder.getAdapterPosition(), holder.imageViewBackGround, v);
             }
         });
     }
