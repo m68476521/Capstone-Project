@@ -96,6 +96,12 @@ public class NewsDetailFragment extends Fragment {
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         assert binding.collapsingToolbar != null;
         binding.collapsingToolbar.setTitle(title);
         binding.collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);

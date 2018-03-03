@@ -22,9 +22,8 @@
 
             <ImageView
                 android:id="@+id/image_view_poster"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -36,10 +35,11 @@
                 android:layout_marginEnd="62dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name"
+                android:layout_marginTop="8dp"
                 android:elevation="4dp"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size_xx"
                 tools:text="Item recipe"/>
 
@@ -50,8 +50,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/image_view_poster"
                 android:scaleType="fitXY"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/ic_favorite_border_black_24dp"/>
 
             <TextView
@@ -64,7 +64,10 @@
                 android:contentDescription="@string/app_name"
                 android:elevation="4dp"
                 android:gravity="left"
-                android:textColor="@color/colorWhite"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size_x"
                 tools:text="Item recipe"/>
         </RelativeLayout>
