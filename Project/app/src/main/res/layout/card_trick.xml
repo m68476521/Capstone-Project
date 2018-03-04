@@ -38,7 +38,7 @@
                 android:elevation="4dp"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size_xx"
                 tools:text="Item recipe"/>
 

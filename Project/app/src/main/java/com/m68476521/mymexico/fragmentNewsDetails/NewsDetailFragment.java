@@ -162,6 +162,12 @@ public class NewsDetailFragment extends Fragment {
                         .getIntent(), getString(R.string.action_share)));
             }
         });
+        if (section.equals(EXTRA_SECTION_NEWS)) {
+            binding.favImageView.setVisibility(View.GONE);
+        } else {
+            binding.favImageView.setVisibility(View.VISIBLE);
+        }
+
         return binding.getRoot();
     }
 }
