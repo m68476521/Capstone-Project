@@ -9,12 +9,16 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.m68476521.mymexico.R;
+
+import java.util.Random;
 
 /**
  * BottomSheetDialogFragment to show the trick.
@@ -25,6 +29,12 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
     private String bodyAnswer;
     private String bodyFakeA;
     private String bodyFakeB;
+
+    private RadioButton radioButtonA;
+    private RadioButton radioButtonB;
+    private RadioButton radioButtonC;
+
+    int realAnswer;
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -57,14 +67,25 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
         TextView textView = contentView.findViewById(R.id.body_question);
         textView.setText(bodyQuestion);
 
-        RadioButton radioButtonA = contentView.findViewById(R.id.radio_answer1);
-        radioButtonA.setText(bodyAnswer);
+        radioButtonA = contentView.findViewById(R.id.radio_answer1);
+        radioButtonB = contentView.findViewById(R.id.radio_answer2);
+        radioButtonC = contentView.findViewById(R.id.radio_answer3);
 
-        RadioButton radioButtonB = contentView.findViewById(R.id.radio_answer2);
-        radioButtonB.setText(bodyFakeA);
+        realAnswer = randomNumber();
 
-        RadioButton radioButtonC = contentView.findViewById(R.id.radio_answer3);
-        radioButtonC.setText(bodyFakeB);
+        if (realAnswer == 1) {
+            radioButtonA.setText(bodyAnswer);
+            radioButtonB.setText(bodyFakeA);
+            radioButtonC.setText(bodyFakeB);
+        } else if (realAnswer == 2) {
+            radioButtonA.setText(bodyFakeA);
+            radioButtonB.setText(bodyAnswer);
+            radioButtonC.setText(bodyFakeB);
+        } else  {
+            radioButtonA.setText(bodyFakeA);
+            radioButtonB.setText(bodyFakeB);
+            radioButtonC.setText(bodyAnswer);
+        }
 
         Button checkButton = contentView.findViewById(R.id.button_check);
 
@@ -87,9 +108,29 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
 
     private void showEditDialog() {
         FragmentManager fm = getFragmentManager();
-        String message = "this is an message example example exmaple example example example qwe";
+        String message;
+
+        if (radioButtonA.isChecked() && realAnswer == 1) {
+            message = "yes, the correct answer is A";
+        }  else if (radioButtonB.isChecked() && realAnswer == 2) {
+            Log.d("MIKE checkB", "MIKE:");
+            message = "yes, the correct answer is B";
+        }  else if (radioButtonC.isChecked() && realAnswer == 3) {
+            message = "yes, the correct answer is C";
+        } else if (!radioButtonA.isChecked() && !radioButtonB.isChecked() && !radioButtonC.isChecked()) {
+            message = "Please select one option";
+        } else {
+            message = "wrong answer try again";
+        }
+
         VerifyDialogFragment editNameDialogFragment = VerifyDialogFragment.newInstance("Some Title", message);
         editNameDialogFragment.show(fm, "fragment_edit_name");
     }
 
+    private int randomNumber() {
+        int max = 3;
+        int min = 1;
+        Random randomNum = new Random();
+        return min + randomNum.nextInt(max);
+    }
 }
