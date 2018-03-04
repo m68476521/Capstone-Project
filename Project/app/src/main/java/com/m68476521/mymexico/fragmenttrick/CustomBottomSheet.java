@@ -109,21 +109,26 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
     private void showEditDialog() {
         FragmentManager fm = getFragmentManager();
         String message;
-
+        String titleMessage = "";
         if (radioButtonA.isChecked() && realAnswer == 1) {
+            titleMessage = "Great!";
             message = "yes, the correct answer is A";
         }  else if (radioButtonB.isChecked() && realAnswer == 2) {
             Log.d("MIKE checkB", "MIKE:");
+            titleMessage = "That's right";
             message = "yes, the correct answer is B";
         }  else if (radioButtonC.isChecked() && realAnswer == 3) {
+            titleMessage = "Nice!";
             message = "yes, the correct answer is C";
         } else if (!radioButtonA.isChecked() && !radioButtonB.isChecked() && !radioButtonC.isChecked()) {
+            titleMessage = "Something went wrong ...";
             message = "Please select one option";
         } else {
+            titleMessage = "Ups!";
             message = "wrong answer try again";
         }
 
-        VerifyDialogFragment editNameDialogFragment = VerifyDialogFragment.newInstance("Some Title", message);
+        VerifyDialogFragment editNameDialogFragment = VerifyDialogFragment.newInstance(titleMessage, message);
         editNameDialogFragment.show(fm, "fragment_edit_name");
     }
 
