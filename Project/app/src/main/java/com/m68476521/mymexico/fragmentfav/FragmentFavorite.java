@@ -2,6 +2,7 @@ package com.m68476521.mymexico.fragmentfav;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -84,7 +86,20 @@ public class FragmentFavorite extends Fragment {
 
         fragmentFavoriteBinding.recyclerViewFav.setAdapter(newsAdapter);
 
-        fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(linearLayoutManager);
+        int numberColumns;
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if (isTablet) {
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                numberColumns = 2;
+            } else {
+                numberColumns = 3;
+            }
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),numberColumns);
+            fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(gridLayoutManager);
+        } else {
+            fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(linearLayoutManager);
+        }
+
         if (cursor != null && cursor.getCount() > 0) {
             Log.d("MIKE", "is not null");
             setupAdapterByCursor(cursor);

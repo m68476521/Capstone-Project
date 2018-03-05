@@ -1,5 +1,6 @@
 package com.m68476521.mymexico.fragmenttrick;
 
+import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,7 +85,19 @@ public class FragmentTrick extends Fragment {
 
         fragmentTrickBinding.recyclerViewTrick.setAdapter(trickAdapter);
 
-        fragmentTrickBinding.recyclerViewTrick.setLayoutManager(linearLayoutManager);
+        int numberColumns;
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if (isTablet) {
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                numberColumns = 2;
+            } else {
+                numberColumns = 3;
+            }
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),numberColumns);
+            fragmentTrickBinding.recyclerViewTrick.setLayoutManager(gridLayoutManager);
+        } else {
+            fragmentTrickBinding.recyclerViewTrick.setLayoutManager(linearLayoutManager);
+        }
 
         if (cursor != null && cursor.getCount() > 0) {
             setupAdapterByCursor(cursor);
