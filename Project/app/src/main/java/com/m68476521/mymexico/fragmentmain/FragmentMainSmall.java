@@ -15,6 +15,7 @@ import com.m68476521.mymexico.fragmentpager.SimpleFragmentPagerAdapter;
 
 /**
  * Main Fragment
+ * TODO: on scroll hide toolbar
  */
 
 public class FragmentMainSmall extends Fragment {
