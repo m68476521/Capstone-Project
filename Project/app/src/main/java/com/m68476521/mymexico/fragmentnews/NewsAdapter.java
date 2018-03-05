@@ -3,6 +3,7 @@ package com.m68476521.mymexico.fragmentnews;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -42,6 +43,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         cursor.moveToPosition(position);
+
+        String id = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_ID));
+        boolean favorite = isFavorite(id);
+
+        if (favorite)
+            holder.imageViewFavorite.setImageResource(R.drawable.ic_favorite);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME));
         Log.d("MIKE title", title);
@@ -122,5 +129,29 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public interface OnItemClicked {
         void onItemClick(View view, int position);
+    }
+
+    private boolean isFavorite(String id) {
+        Cursor cursorResult = null;
+        try {
+            Uri uri2 = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
+
+            uri2 = uri2.buildUpon().appendPath(id).build();
+            cursorResult = context.getContentResolver().query(uri2,
+                    null,
+                    null,
+                    null,
+                    null);
+        } finally {
+            cursorResult.close();
+        }
+
+        int numberCount = cursorResult.getCount();
+
+        if (numberCount > 0)
+            return true;
+        else
+            return false;
+
     }
 }

@@ -61,14 +61,6 @@ public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> 
                     .into(holder.imageViewBackGround);
         }
 
-        holder.imageViewFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("MIKE", "clicked fav");
-                listener.onItemClick(v, position);
-            }
-        });
-
         holder.imageViewBackGround.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,13 +82,11 @@ public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView textViewTitle;
         public final ImageView imageViewBackGround;
-        public final ImageView imageViewFavorite;
 
         public ViewHolder(View view) {
             super(view);
             textViewTitle = view.findViewById(R.id.text_view_title);
             imageViewBackGround = view.findViewById(R.id.image_view_poster);
-            imageViewFavorite = view.findViewById(R.id.image_view_fav);
         }
     }
 
