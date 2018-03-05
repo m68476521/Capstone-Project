@@ -2,6 +2,7 @@ package com.m68476521.mymexico.fragmentnews;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -120,7 +121,19 @@ public class News extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
                 GridLayoutManager.VERTICAL, false);
 
-        fragmentNewsBinding.recyclerView.setLayoutManager(linearLayoutManager);
+        int numberColumns;
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if (isTablet) {
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                numberColumns = 2;
+            } else {
+                numberColumns = 3;
+            }
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),numberColumns);
+            fragmentNewsBinding.recyclerView.setLayoutManager(gridLayoutManager);
+        } else {
+            fragmentNewsBinding.recyclerView.setLayoutManager(linearLayoutManager);
+        }
 
         newsAdapter = new NewsAdapter(getActivity(), new NewsAdapter.OnItemClicked() {
             @Override
