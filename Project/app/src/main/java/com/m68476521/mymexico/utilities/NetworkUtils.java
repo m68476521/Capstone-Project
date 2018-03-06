@@ -19,7 +19,7 @@ import okhttp3.Response;
  */
 
 public class NetworkUtils {
-    //TODO: add the api URL into URL
+    //TODO: add the api URL into BASE_URL
     private final static String BASE_URL =
             "";
 
@@ -42,7 +42,6 @@ public class NetworkUtils {
 
     public JSONObject getDataFromApi() {
         JSONObject Jobject = null;
-        Log.d("MIKE exception ", "MIKE");
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -54,10 +53,10 @@ public class NetworkUtils {
                 return new JSONObject(responses.body().string());
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.d("MIKE EXCEPTION@#", e.toString());
+                Log.d("EXCEPTION: ", e.toString());
             }
         } catch (JSONException e) {
-            Log.d("MIKE exception lol", e.toString());
+            Log.d("JSONException: ", e.toString());
         }
         return Jobject;
     }
