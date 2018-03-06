@@ -1,5 +1,6 @@
 package com.m68476521.mymexico.fragmenttrick;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -26,6 +27,7 @@ public class FragmentTrick extends Fragment {
     private FragmentTrickBinding fragmentTrickBinding;
     private Cursor cursor;
     private TrickAdapter trickAdapter;
+    private Context context;
 
     public FragmentTrick() {
         // Required empty public constructor
@@ -35,6 +37,7 @@ public class FragmentTrick extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("MIKE on create", "TRicks");
+        context = getActivity();
         cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_TRICKS,
                 null,
                 null,
@@ -127,7 +130,7 @@ public class FragmentTrick extends Fragment {
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
             Log.d("MIKE", "onChangeTrick");
-            cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_TRICKS,
+            cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_TRICKS,
                     null,
                     null,
                     null,

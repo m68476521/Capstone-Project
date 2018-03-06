@@ -76,7 +76,6 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
             // Send a notification that you got a new message
             sendNotification(data);
             insertTrick(data);
-
         }
     }
 
@@ -120,10 +119,11 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
             message = message.substring(0, NOTIFICATION_MAX_CHARACTERS) + "\u2026";
         }
 
+        String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 //TODO change the icon
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_m)
                 .setContentTitle(String.format(getString(R.string.notification_message), author))
                 .setContentText(message)
                 .setAutoCancel(true)
