@@ -162,18 +162,7 @@ public class News extends Fragment {
                         contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, description);
                         contentValues.put(TaskContract.TaskEntry.COLUMN_IMAGE, image);
                         contentValues.put(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED, lastModified);
-
                         Uri uri = getContext().getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI, contentValues);
-                    }
-
-                    cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
-                            null,
-                            null,
-                            null,
-                            TaskContract.TaskEntry.COLUMN_ID);
-
-                    if (cursor != null) {
-                        setupAdapterByCursor(cursor);
                     }
                 }
 
@@ -186,6 +175,15 @@ public class News extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    TaskContract.TaskEntry.COLUMN_ID);
+
+            if (cursor != null) {
+                setupAdapterByCursor(cursor);
+            }
         }
     }
 
