@@ -63,7 +63,7 @@ public class News extends Fragment {
         try {
             newsItemClickListener = (NewsItemClickListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " MIKE must implement OnArticleSelectedListener");
+            throw new ClassCastException(context.toString() + " Catch must implement OnArticleSelectedListener");
         }
     }
 
@@ -77,40 +77,15 @@ public class News extends Fragment {
                 null,
                 TaskContract.TaskEntry.COLUMN_ID);
         if (cursor == null || cursor.getCount() == 0) {
-            Log.d("MIKE get API ", "from news");
+            Log.d(" get API ", "from news");
             getApiData();
         }
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             int descriptionIndex = cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME);
             String name = cursor.getString(descriptionIndex);
-            Log.d("MIKE", "data got it: " + name);
+            Log.d(TAG, "data got it: " + name);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("MIKE", " onREsume");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("MIKE", " onStart");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("MIKE", " onPasue");
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("MIKE", " onDestroy");
     }
 
     @Nullable
@@ -138,7 +113,6 @@ public class News extends Fragment {
         newsAdapter = new NewsAdapter(getActivity(), new NewsAdapter.OnItemClicked() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("MIKE", " CLICKED: " + Integer.toString(position));
                 setFavoriteNews(position);
             }
         }, new NewsItemClickListener() {
@@ -151,7 +125,6 @@ public class News extends Fragment {
         fragmentNewsBinding.recyclerView.setAdapter(newsAdapter);
 
         if (cursor != null) {
-            Log.d("MIKE", "is not null from news");
             setupAdapterByCursor(cursor);
         }
         return fragmentNewsBinding.getRoot();
@@ -167,7 +140,6 @@ public class News extends Fragment {
 
         @Override
         protected String doInBackground(URL... urls) {
-            Log.d("MIKE ", "doInBackground from News");
             try {
                 NetworkUtils networkUtils = new NetworkUtils();
                 result = networkUtils.getDataFromApi();
@@ -183,7 +155,6 @@ public class News extends Fragment {
                         String description = innerObject.getString(TaskContract.TaskEntry.COLUMN_DESCRIPTION);
                         String image = innerObject.getString(TaskContract.TaskEntry.COLUMN_IMAGE);
                         String lastModified = innerObject.getString(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED);
-                        Log.d("MIKE:: ", name + "|" + id + "|" + description + "|" + image + "|" + lastModified);
 
                         ContentValues contentValues = new ContentValues();
                         contentValues.put(TaskContract.TaskEntry.COLUMN_ID, id);
@@ -195,7 +166,6 @@ public class News extends Fragment {
                         Uri uri = getContext().getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI, contentValues);
                     }
 
-                    Log.d("MIKE done call", " the cursor");
                     cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
                             null,
                             null,
@@ -203,13 +173,12 @@ public class News extends Fragment {
                             TaskContract.TaskEntry.COLUMN_ID);
 
                     if (cursor != null) {
-                        Log.d("MIKE", "is not null from news");
                         setupAdapterByCursor(cursor);
                     }
                 }
 
             } catch (Exception e) {
-                Log.d("MIKE EXCEPTION", e.toString());
+                Log.d("EXCEPTION::", e.toString());
             }
             return "";
         }
@@ -229,7 +198,6 @@ public class News extends Fragment {
         cursor.moveToPosition(position);
         String mId = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_ID));
 
-        Log.d("MIKE", "MIKE " + mId);
         try {
             Uri uri2 = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
 
@@ -246,12 +214,10 @@ public class News extends Fragment {
         boolean isFav = numberCount > 0;
 
         if (isFav) {
-            Log.d("MIKE", "MIKE is fav" + mId);
             Uri uri = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
             uri = uri.buildUpon().appendPath(mId).build();
             getContext().getContentResolver().delete(uri, null, null);
         } else {
-            Log.d("MIKE", "MIKE is not" + mId);
             ContentValues contentValues = new ContentValues();
             contentValues.put(TaskContract.TaskEntry.COLUMN_ID, mId);
             contentValues.put(TaskContract.TaskEntry.COLUMN_NAME, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME)));
@@ -263,7 +229,6 @@ public class News extends Fragment {
                             TaskContract.TaskEntry.CONTENT_URI_FAVORITES, contentValues);
 
             if (uri != null) {
-                Log.d("MIKE URL", uri.toString());
                 Toast.makeText(getContext(), uri.toString(), Toast.LENGTH_LONG).show();
             }
         }

@@ -25,7 +25,6 @@ public class VerifyDialogFragment extends DialogFragment {
     public static VerifyDialogFragment newInstance(String title, String message) {
         VerifyDialogFragment frag = new VerifyDialogFragment();
         Bundle args = new Bundle();
-        Log.d("MIKE", title);
         args.putString(EXTRA_TITLE, title);
         args.putString(EXTRA_MESSAGE, message);
         frag.setArguments(args);

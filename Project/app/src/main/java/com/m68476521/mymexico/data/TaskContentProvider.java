@@ -75,7 +75,6 @@ public class TaskContentProvider extends ContentProvider {
                         sortOrder);
                 break;
             case FAVORITES:
-                Log.d("MIKE", "MIKE FAV ");
                 retCursor = db.query(TABLE_NAME_FAVORITES,
                         projection,
                         selection,
@@ -85,7 +84,6 @@ public class TaskContentProvider extends ContentProvider {
                         sortOrder);
                 break;
             case FAV_ITEM_WITH_ID:
-                Log.d("MIKE", "MIKE FAV with id");
                 String id = uri.getPathSegments().get(1);
                 retCursor = db.query(TABLE_NAME_FAVORITES,
                         projection,

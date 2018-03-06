@@ -17,7 +17,7 @@ import com.m68476521.mymexico.data.TaskContract;
 import com.squareup.picasso.Picasso;
 
 /**
- * TODO: add description
+ * This adapter is used for Trick on TrickFragment
  */
 
 public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> {
@@ -43,7 +43,6 @@ public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> 
         cursor.moveToPosition(position);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION));
-        Log.d("MIKE title", title);
         holder.textViewTitle.setText(title);
 
         Picasso.with(context)
@@ -64,7 +63,6 @@ public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> 
         holder.imageViewBackGround.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MIKE", "clicked fav");
                 listener.onItemClick(v, position);
             }
         });

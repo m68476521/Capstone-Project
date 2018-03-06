@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.m68476521.mymexico.data.TaskContract;
 
 /**
- * Created by mike on 2/17/18.
+ * This class is an adapter for the ViewPager
  */
 
 public class NewsPageAdapter extends FragmentStatePagerAdapter {

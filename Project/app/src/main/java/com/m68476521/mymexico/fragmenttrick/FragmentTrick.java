@@ -36,7 +36,6 @@ public class FragmentTrick extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("MIKE on create", "TRicks");
         context = getActivity();
         cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_TRICKS,
                 null,
@@ -45,11 +44,9 @@ public class FragmentTrick extends Fragment {
                 TaskContract.TaskEntry.COLUMN_ID);
 
         if (cursor != null || cursor.getCount() != 0 ) {
-            Log.d("Mike", "cursor in ont null at Tricks");
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 int descriptionIndex = cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION);
                 String name = cursor.getString(descriptionIndex);
-                Log.d("MIKE", "data got it from tricks " + name);
             }
         }
         MyObserver myObserver = new MyObserver(new Handler());
@@ -72,7 +69,6 @@ public class FragmentTrick extends Fragment {
         trickAdapter = new TrickAdapter(getActivity(), new TrickAdapter.OnItemClicked() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("MIKE clickec on ima", Integer.toString(position));
                 cursor.moveToPosition(position);
                 BottomSheetDialogFragment bottomSheetDialogFragment = new CustomBottomSheet();
                 Bundle args = new Bundle();
@@ -116,20 +112,17 @@ public class FragmentTrick extends Fragment {
     class MyObserver extends ContentObserver {
         public MyObserver(Handler handler) {
             super(handler);
-            Log.d("MIKE", "on CreateObserveTrickr");
         }
 
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            Log.d("MIKE", "onChangeAtrick");
         }
 
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
-            Log.d("MIKE", "onChangeTrick");
             cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_TRICKS,
                     null,
                     null,

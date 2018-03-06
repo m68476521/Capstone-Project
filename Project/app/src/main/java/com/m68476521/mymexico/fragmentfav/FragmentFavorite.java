@@ -42,7 +42,7 @@ public class FragmentFavorite extends Fragment {
         try {
             newsItemClickListener = (NewsItemClickListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " MIKE must implement OnArticleSelectedListener");
+            throw new ClassCastException(context.toString() + " Catch must implement OnArticleSelectedListener");
         }
     }
 
@@ -74,7 +74,6 @@ public class FragmentFavorite extends Fragment {
         newsAdapter = new NewsAdapter(getActivity(), new NewsAdapter.OnItemClicked() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("MIKE", " CLICKED: " + Integer.toString(position));
                 setFavoriteNews(position);
             }
         }, new NewsItemClickListener() {
@@ -101,15 +100,8 @@ public class FragmentFavorite extends Fragment {
         }
 
         if (cursor != null && cursor.getCount() > 0) {
-            Log.d("MIKE", "is not null");
             setupAdapterByCursor(cursor);
         }
-
-//        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-//            int descriptionIndex = cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME);
-//            String name = cursor.getString(descriptionIndex);
-//            Log.d("MIKE FAV", "data got it: " + name);
-//        }
         return fragmentFavoriteBinding.getRoot();
     }
 
@@ -122,7 +114,6 @@ public class FragmentFavorite extends Fragment {
         cursor.moveToPosition(position);
         String mId = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_ID));
 
-        Log.d("MIKE", "MIKE " + mId);
         try {
             Uri uri2 = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
 
@@ -139,12 +130,10 @@ public class FragmentFavorite extends Fragment {
         boolean isFav = numberCount > 0;
 
         if (isFav) {
-            Log.d("MIKE", "MIKE is fav" + mId);
             Uri uri = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
             uri = uri.buildUpon().appendPath(mId).build();
             getContext().getContentResolver().delete(uri, null, null);
         } else {
-            Log.d("MIKE", "MIKE is not" + mId);
             ContentValues contentValues = new ContentValues();
             contentValues.put(TaskContract.TaskEntry.COLUMN_ID, mId);
             contentValues.put(TaskContract.TaskEntry.COLUMN_NAME, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME)));
@@ -156,7 +145,6 @@ public class FragmentFavorite extends Fragment {
                             TaskContract.TaskEntry.CONTENT_URI_FAVORITES, contentValues);
 
             if (uri != null) {
-                Log.d("MIKE URL", uri.toString());
                 Toast.makeText(getContext(), uri.toString(), Toast.LENGTH_LONG).show();
             }
         }
@@ -165,20 +153,17 @@ public class FragmentFavorite extends Fragment {
     class MyObserver extends ContentObserver {
         public MyObserver(Handler handler) {
             super(handler);
-            Log.d("MIKE", "on CreateObserver");
         }
 
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            Log.d("MIKE", "onChangeA");
         }
 
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
-            Log.d("MIKE", "onChangeB");
             cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
                     null,
                     null,

@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 /**
- * Created by mike on 2/15/18.
+ * This is an interface that is principal method is an onClick from the listenet
  */
 
 public interface NewsItemClickListener {

@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.m68476521.mymexico.R;
 
 /**
- * Created by mike on 2/15/18.
+ * This class is a fragment that contains the main tablayout for news, favorites and tricks
  */
 
 public class NewsViewPagerFragment extends Fragment {
@@ -48,7 +48,6 @@ public class NewsViewPagerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         postponeEnterTransition();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d("MIKE tag", "C");
             setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
         }
         setSharedElementReturnTransition(null);
@@ -71,7 +70,7 @@ public class NewsViewPagerFragment extends Fragment {
 
         NewsPageAdapter newsPageAdapter = new NewsPageAdapter(section, getChildFragmentManager(), getContext());
 
-        viewPager = (ViewPager) view.findViewById(R.id.news_view_pager);
+        viewPager = view.findViewById(R.id.news_view_pager);
         viewPager.setAdapter(newsPageAdapter);
         viewPager.setCurrentItem(currentItem);
     }

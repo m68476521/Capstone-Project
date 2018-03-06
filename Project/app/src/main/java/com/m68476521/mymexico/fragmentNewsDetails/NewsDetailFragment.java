@@ -27,7 +27,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 /**
- * Created by mike on 2/17/18.
+ * This is the synopsis page for the news
  */
 
 public class NewsDetailFragment extends Fragment {
@@ -60,7 +60,6 @@ public class NewsDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         postponeEnterTransition();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d("MIKE tag", "A");
             setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
         }
 
@@ -132,7 +131,6 @@ public class NewsDetailFragment extends Fragment {
         binding.newsDetailText.setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d("MIKE tag", "B");
             binding.newsDetailImageView.setTransitionName(transitionName);
         }
 
@@ -158,7 +156,7 @@ public class NewsDetailFragment extends Fragment {
             public void onClick(View view) {
                 startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
                         .setType("text/plain")
-                        .setText("Some sample text")
+                        .setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)))
                         .getIntent(), getString(R.string.action_share)));
             }
         });

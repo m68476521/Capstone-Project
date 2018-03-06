@@ -19,7 +19,7 @@ import com.m68476521.mymexico.data.TaskContract;
 import com.squareup.picasso.Picasso;
 
 /**
- * Created by mike on 2/7/18.
+ * This class is an adapter for the news also it can be used in favorites fragment
  */
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
@@ -51,12 +51,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             holder.imageViewFavorite.setImageResource(R.drawable.ic_favorite);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME));
-        Log.d("MIKE title", title);
         holder.textViewTitle.setText(title);
 
         String desc = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION));
         holder.textViewShortDesc.setText(desc);
-        Log.d("MIKE desc", desc);
 
         Picasso.with(holder.itemView.getContext())
                 .load(R.drawable.ic_launcher_background)
@@ -76,18 +74,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.imageViewFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MIKE", "clicked fav");
                 listener.onItemClick(v, holder.getAdapterPosition());
             }
         });
 
-        Log.d("MIKE imageTransi name:", title);
 
         ViewCompat.setTransitionName(holder.imageViewBackGround, title);
         holder.imageViewBackGround.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MIKE 24", "posterClicked");
                 newsItemClickListener.onlItemClick("NEWS", holder.getAdapterPosition(), holder.imageViewBackGround, v);
             }
         });

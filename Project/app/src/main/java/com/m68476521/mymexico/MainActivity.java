@@ -18,7 +18,7 @@ import com.m68476521.mymexico.fragmentNewsDetails.NewsViewPagerFragment;
 import com.m68476521.mymexico.fragmentmain.FragmentMainSmall;
 import com.m68476521.mymexico.fragmentnews.NewsItemClickListener;
 
-// TODO add a description
+// This is the main activity that handles all the fragments
 public class MainActivity extends AppCompatActivity implements NewsItemClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int TASK_LOADER_ID = 0;
@@ -78,16 +78,7 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
 
     @Override
     public void onlItemClick(String section, int pos, ImageView shareImageView, View view) {
-        Log.d("MIKE MAINACTIVITY", Integer.toString(pos) + " " + shareImageView.toString());
         newsViewPagerFragment = NewsViewPagerFragment.newInstance(section ,pos, this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d("MIKE", "add transtision MIKE");
-//            newsViewPagerFragment.setSharedElementEnterTransition(new DetailsTransition());
-//            newsViewPagerFragment.setEnterTransition(new Fade());
-//            getWindow().setExitTransition(new Fade());
-//            newsViewPagerFragment.setSharedElementReturnTransition(new DetailsTransition());
-        }
 
         fragmentManager
                 .beginTransaction()

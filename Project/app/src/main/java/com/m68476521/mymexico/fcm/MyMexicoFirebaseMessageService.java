@@ -64,7 +64,6 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
         // the app is both in the foreground AND the background
 
         Log.d(LOG_TAG, "From: " + remoteMessage.getFrom());
-        Log.d("MIKE", "MIKE");
 
         // Check if message contains a data payload.
 
@@ -88,13 +87,6 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
         // Database operations should not be done on the main thread
         this.data = data;
         URL url = null;
-
-        Log.d("MIKE A", data.get("f_question"));
-        Log.d("MIKE B", data.get("f_hint"));
-        Log.d("MIKE C", data.get("id"));
-        Log.d("MIKE D", data.get("f_valid_answer"));
-        Log.d("MIKE E", data.get("f_fake_answer_a"));
-        Log.d("MIKE F", data.get("f_fake_answer_b"));
         new InsertTrickSync().execute(url);
     }
 
@@ -149,7 +141,6 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B, data.get(JSON_KEY_FAKE_B));
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_HINT, data.get(JSON_KEY_HINT));
             getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI_TRICKS, newMessage);
-            Log.d("MIKE A", data.get("f_question"));
             return null;
         }
     }
