@@ -35,9 +35,10 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
     private static final String JSON_KEY_HINT = TaskContract.TaskEntry.COLUMN_FCM_HINT;
 
     private static final int NOTIFICATION_MAX_CHARACTERS = 30;
-    private static String LOG_TAG = MyMexicoFirebaseMessageService.class.getSimpleName();
+    private static final String LOG_TAG = MyMexicoFirebaseMessageService.class.getSimpleName();
 
-    private Map<String, String> data;
+    private static Map<String, String> data;
+    private static Context context;
 
     /**
      * Called when message is received.
@@ -62,6 +63,7 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
 
         // The Squawk server always sends just *data* messages, meaning that onMessageReceived when
         // the app is both in the foreground AND the background
+        context = getApplicationContext();
 
         Log.d(LOG_TAG, "From: " + remoteMessage.getFrom());
 
@@ -87,6 +89,7 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
         // Database operations should not be done on the main thread
         this.data = data;
         URL url = null;
+        context = getApplicationContext();
         new InsertTrickSync().execute(url);
     }
 
@@ -128,7 +131,7 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
-    private class InsertTrickSync extends AsyncTask<URL, Void,
+    private static class InsertTrickSync extends AsyncTask<URL, Void,
             String> {
 
         @Override
@@ -140,7 +143,7 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A, data.get(JSON_KEY_FAKE_A));
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B, data.get(JSON_KEY_FAKE_B));
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_HINT, data.get(JSON_KEY_HINT));
-            getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI_TRICKS, newMessage);
+            context.getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI_TRICKS, newMessage);
             return null;
         }
     }

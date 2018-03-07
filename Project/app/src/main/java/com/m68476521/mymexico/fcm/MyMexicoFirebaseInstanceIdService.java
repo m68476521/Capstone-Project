@@ -11,7 +11,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 public class MyMexicoFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
-    private static String LOG_TAG = MyMexicoFirebaseInstanceIdService.class.getSimpleName();
+    private static final String LOG_TAG = MyMexicoFirebaseInstanceIdService.class.getSimpleName();
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of

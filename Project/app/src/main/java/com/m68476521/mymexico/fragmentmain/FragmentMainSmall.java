@@ -19,17 +19,11 @@ import com.m68476521.mymexico.fragmentpager.SimpleFragmentPagerAdapter;
  */
 
 public class FragmentMainSmall extends Fragment {
-    private FragmentMainSmallBinding fragmentMainSmallBinding;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragmentMainSmallBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_small, container, false);
+        FragmentMainSmallBinding fragmentMainSmallBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_small, container, false);
         SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getContext(), getChildFragmentManager());
         fragmentMainSmallBinding.viewpager.setAdapter(adapter);
         fragmentMainSmallBinding.slidingTabs.setupWithViewPager(fragmentMainSmallBinding.viewpager);

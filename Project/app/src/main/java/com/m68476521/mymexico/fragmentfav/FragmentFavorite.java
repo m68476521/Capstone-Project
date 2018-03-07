@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +30,9 @@ import com.m68476521.mymexico.fragmentnews.NewsItemClickListener;
  */
 
 public class FragmentFavorite extends Fragment {
-    private FragmentFavoriteBinding fragmentFavoriteBinding;
     private Cursor cursor;
     private NewsAdapter newsAdapter;
-    NewsItemClickListener newsItemClickListener;
+    private NewsItemClickListener newsItemClickListener;
 
     @Override
     public void onAttach(Context context) {
@@ -65,7 +63,7 @@ public class FragmentFavorite extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragmentFavoriteBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
+        FragmentFavoriteBinding fragmentFavoriteBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
@@ -93,7 +91,7 @@ public class FragmentFavorite extends Fragment {
             } else {
                 numberColumns = 3;
             }
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),numberColumns);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberColumns);
             fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(gridLayoutManager);
         } else {
             fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(linearLayoutManager);

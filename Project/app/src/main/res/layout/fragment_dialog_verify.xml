@@ -2,22 +2,22 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
-    android:layout_height="600dp"
+    android:layout_width="@dimen/width_350"
+    android:layout_height="@dimen/height_600"
     android:background="@color/colorWhite">
 
     <TextView
         android:id="@+id/title_message"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="@dimen/height_62"
         android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
+        android:textSize="@dimen/text_size_24"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginTop="24dp"/>
+        app:layout_goneMarginTop="@dimen/margin_24"/>
 
 </android.support.constraint.ConstraintLayout>

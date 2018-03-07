@@ -6,9 +6,10 @@
     <string name="tricks">"Tricks"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fake_answer">This is a fake answer, This is a fake answer, This is a fake answer, This is a fake answer, This is a fake answer</string>
     <string name="check_answer">Verify</string>
     <string name="action_share">Share</string>
+
+    <string name="image_desc">simple image description</string>
 
 </resources>

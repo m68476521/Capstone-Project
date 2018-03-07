@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import static com.m68476521.mymexico.data.TaskContract.TaskEntry.CONTENT_URI;
 import static com.m68476521.mymexico.data.TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
@@ -24,13 +23,13 @@ import static com.m68476521.mymexico.data.TaskContract.TaskEntry.TABLE_NAME_TRIC
  */
 
 public class TaskContentProvider extends ContentProvider {
-    public static final int NEWS = 100;
-    public static final int TRICKS = 200;
-    public static final int FAVORITES = 300;
-    public static final int FAV_ITEM_WITH_ID = 301;
+    private static final int NEWS = 100;
+    private static final int TRICKS = 200;
+    private static final int FAVORITES = 300;
+    private static final int FAV_ITEM_WITH_ID = 301;
     private static final UriMatcher uriMatcher = buildUriMatcher();
 
-    public static UriMatcher buildUriMatcher() {
+    private static UriMatcher buildUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_NEWS, NEWS);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TRICKS, TRICKS);

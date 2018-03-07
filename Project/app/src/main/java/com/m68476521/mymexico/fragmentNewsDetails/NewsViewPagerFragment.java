@@ -2,14 +2,12 @@ package com.m68476521.mymexico.fragmentNewsDetails;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.transition.Explode;
 import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +15,12 @@ import android.view.ViewGroup;
 import com.m68476521.mymexico.R;
 
 /**
- * This class is a fragment that contains the main tablayout for news, favorites and tricks
+ * This class is a fragment that contains the main tabLayout for news, favorites and tricks
  */
 
 public class NewsViewPagerFragment extends Fragment {
     private static final String EXTRA_INITIAL_ITEM_POS = "initial_item_pos";
     private static final String EXTRA_SECTION = "section";
-    private Cursor cursor;
-    private ViewPager viewPager;
     private String section;
 
     public NewsViewPagerFragment() {
@@ -47,9 +43,9 @@ public class NewsViewPagerFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postponeEnterTransition();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
-        }
+
+        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+
         setSharedElementReturnTransition(null);
         if (getArguments().containsKey(EXTRA_SECTION)) {
             section = getArguments().getString(EXTRA_SECTION);
@@ -70,7 +66,7 @@ public class NewsViewPagerFragment extends Fragment {
 
         NewsPageAdapter newsPageAdapter = new NewsPageAdapter(section, getChildFragmentManager(), getContext());
 
-        viewPager = view.findViewById(R.id.news_view_pager);
+        ViewPager viewPager = view.findViewById(R.id.news_view_pager);
         viewPager.setAdapter(newsPageAdapter);
         viewPager.setCurrentItem(currentItem);
     }

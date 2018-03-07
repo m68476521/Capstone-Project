@@ -14,13 +14,12 @@ import com.m68476521.mymexico.data.TaskContract;
 
 public class NewsPageAdapter extends FragmentStatePagerAdapter {
     private static final String EXTRA_SECTION_NEWS = "NEWS";
-    private Cursor cursor;
-    private Context context;
-    private String section;
+    private final Cursor cursor;
+    private final String section;
 
     NewsPageAdapter(String section, FragmentManager fm, Context context) {
         super(fm);
-        this.context = context;
+        Context context1 = context;
         this.section = section;
 
         if (section.equals(EXTRA_SECTION_NEWS)) {

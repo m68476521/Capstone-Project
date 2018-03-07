@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * This helper is used for the content Provider
  */
 
-public class TaskDbHelper extends SQLiteOpenHelper {
+class TaskDbHelper extends SQLiteOpenHelper {
     // The name of the database
     private static final String DATABASE_NAME = "newsDb.db";
 

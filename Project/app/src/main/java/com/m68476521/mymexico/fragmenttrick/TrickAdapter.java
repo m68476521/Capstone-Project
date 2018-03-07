@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import com.squareup.picasso.Picasso;
  */
 
 public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> {
-    private Context context;
+    private final Context context;
     private Cursor cursor;
 
     private final OnItemClicked listener;
@@ -39,7 +38,7 @@ public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         cursor.moveToPosition(position);
 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION));
@@ -63,7 +62,7 @@ public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> 
         holder.imageViewBackGround.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(v, position);
+                listener.onItemClick(v, holder.getAdapterPosition());
             }
         });
     }

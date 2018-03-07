@@ -10,14 +10,14 @@ import android.util.Log;
  * Class used to handles the loaders
  */
 
-public class TaskModelLoader extends AsyncTaskLoader<Cursor> {
+class TaskModelLoader extends AsyncTaskLoader<Cursor> {
     private static final String TAG = TaskModelLoader.class.getSimpleName();
     private Cursor cursor;
     private final Context context;
     private final int queryId;
     private final String recipeValue;
 
-    public TaskModelLoader(final Context context, int idQuery, String recipeValue) {
+    private TaskModelLoader(final Context context, int idQuery, String recipeValue) {
         super(context);
         this.context = context;
         queryId = idQuery;

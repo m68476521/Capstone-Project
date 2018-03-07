@@ -9,10 +9,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/card_view"
         style="@style/MyCardViewStyle"
-        android:layout_width="290dp"
+        android:layout_width="@dimen/width_290"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/margin_10"
         android:shadowColor="@color/colorPrimaryDark"
         android:stateListAnimator="@animator/click_raise">
 
@@ -23,7 +23,8 @@
             <ImageView
                 android:id="@+id/image_view_poster"
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
+                android:layout_height="@dimen/height_225"
+                android:contentDescription="@string/image_desc"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -32,11 +33,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/image_view_poster"
-                android:layout_marginEnd="62dp"
+                android:layout_marginEnd="@dimen/margin_62"
+                android:layout_marginTop="@dimen/margin_8"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name"
-                android:layout_marginTop="8dp"
-                android:elevation="4dp"
+                android:elevation="@dimen/elevation_4"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textColor="@color/colorText"
@@ -45,13 +46,14 @@
 
             <ImageView
                 android:id="@+id/image_view_fav"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/width_45"
+                android:layout_height="@dimen/width_45"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/image_view_poster"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_14"
+                android:contentDescription="@string/image_desc"
                 android:scaleType="fitXY"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="14dp"
                 android:src="@drawable/ic_favorite_border"/>
 
             <TextView
@@ -60,13 +62,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/text_view_title"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name"
-                android:elevation="4dp"
-                android:gravity="left"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:elevation="@dimen/elevation_4"
+                android:gravity="start"
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size_x"
                 tools:text="Item recipe"/>

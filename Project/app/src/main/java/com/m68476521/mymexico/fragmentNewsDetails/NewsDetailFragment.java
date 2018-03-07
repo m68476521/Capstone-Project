@@ -4,21 +4,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
@@ -35,7 +30,6 @@ public class NewsDetailFragment extends Fragment {
     private static final String EXTRA_TRANSITION_NAME = "transition_name";
     private static final String EXTRA_SECTION = "section";
     private static final String EXTRA_SECTION_NEWS = "NEWS";
-    private static final String EXTRA_SECTION_FAVORITES = "FAVORITES";
     private Cursor cursor;
     private String section;
 
@@ -59,9 +53,8 @@ public class NewsDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postponeEnterTransition();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
-        }
+
+        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
 
         if (getArguments().containsKey(EXTRA_SECTION)) {
             section = getArguments().getString(EXTRA_SECTION);
@@ -130,9 +123,9 @@ public class NewsDetailFragment extends Fragment {
 
         binding.newsDetailText.setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            binding.newsDetailImageView.setTransitionName(transitionName);
-        }
+
+        binding.newsDetailImageView.setTransitionName(transitionName);
+
 
         binding.categoryTextView.setText("CategoryExample");
 

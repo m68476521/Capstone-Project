@@ -12,7 +12,6 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +19,9 @@ import android.view.ViewGroup;
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
 import com.m68476521.mymexico.databinding.FragmentTrickBinding;
-import com.m68476521.mymexico.fragmentfav.FragmentFavorite;
 
 public class FragmentTrick extends Fragment {
 
-    private FragmentTrickBinding fragmentTrickBinding;
     private Cursor cursor;
     private TrickAdapter trickAdapter;
     private Context context;
@@ -43,12 +40,6 @@ public class FragmentTrick extends Fragment {
                 null,
                 TaskContract.TaskEntry.COLUMN_ID);
 
-        if (cursor != null || cursor.getCount() != 0 ) {
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                int descriptionIndex = cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION);
-                String name = cursor.getString(descriptionIndex);
-            }
-        }
         MyObserver myObserver = new MyObserver(new Handler());
         getContext().getContentResolver().registerContentObserver(
                 TaskContract.TaskEntry.CONTENT_URI_TRICKS,
@@ -60,7 +51,7 @@ public class FragmentTrick extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        fragmentTrickBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_trick, container, false);
+        FragmentTrickBinding fragmentTrickBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_trick, container, false);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
@@ -92,7 +83,7 @@ public class FragmentTrick extends Fragment {
             } else {
                 numberColumns = 3;
             }
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),numberColumns);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberColumns);
             fragmentTrickBinding.recyclerViewTrick.setLayoutManager(gridLayoutManager);
         } else {
             fragmentTrickBinding.recyclerViewTrick.setLayoutManager(linearLayoutManager);

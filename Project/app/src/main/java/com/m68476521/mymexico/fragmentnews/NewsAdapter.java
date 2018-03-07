@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import com.squareup.picasso.Picasso;
  */
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    private Context context;
+    private final Context context;
     private Cursor cursor;
     private final NewsItemClickListener newsItemClickListener;
     private final OnItemClicked listener;
@@ -143,10 +142,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         int numberCount = cursorResult.getCount();
 
-        if (numberCount > 0)
-            return true;
-        else
-            return false;
+        return numberCount > 0;
 
     }
 }

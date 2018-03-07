@@ -1,15 +1,12 @@
 package com.m68476521.mymexico;
 
 import android.content.ContentValues;
-import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -20,13 +17,7 @@ import com.m68476521.mymexico.fragmentnews.NewsItemClickListener;
 
 // This is the main activity that handles all the fragments
 public class MainActivity extends AppCompatActivity implements NewsItemClickListener {
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final int TASK_LOADER_ID = 0;
-    private Cursor cursor;
-    FragmentManager fragmentManager;
-    public static int currentPosition;
-
-    Fragment newsViewPagerFragment;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +63,13 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
         }
     }
 
-    protected Fragment createFragment() {
+    private Fragment createFragment() {
         return new FragmentMainSmall();
     }
 
     @Override
     public void onlItemClick(String section, int pos, ImageView shareImageView, View view) {
-        newsViewPagerFragment = NewsViewPagerFragment.newInstance(section ,pos, this);
+        Fragment newsViewPagerFragment = NewsViewPagerFragment.newInstance(section, pos, this);
 
         fragmentManager
                 .beginTransaction()

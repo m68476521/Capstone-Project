@@ -9,11 +9,9 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.m68476521.mymexico.R;
@@ -34,9 +32,9 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
     private RadioButton radioButtonB;
     private RadioButton radioButtonC;
 
-    int realAnswer;
+    private int realAnswer;
 
-    private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
+    private final BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
         @Override
         public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -81,7 +79,7 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
             radioButtonA.setText(bodyFakeA);
             radioButtonB.setText(bodyAnswer);
             radioButtonC.setText(bodyFakeB);
-        } else  {
+        } else {
             radioButtonA.setText(bodyFakeA);
             radioButtonB.setText(bodyFakeB);
             radioButtonC.setText(bodyAnswer);
@@ -109,14 +107,14 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
     private void showEditDialog() {
         FragmentManager fm = getFragmentManager();
         String message;
-        String titleMessage = "";
+        String titleMessage;
         if (radioButtonA.isChecked() && realAnswer == 1) {
             titleMessage = "Great!";
             message = "yes, that is correct answer!";
-        }  else if (radioButtonB.isChecked() && realAnswer == 2) {
+        } else if (radioButtonB.isChecked() && realAnswer == 2) {
             titleMessage = "That's right";
             message = "yes, that is correct!";
-        }  else if (radioButtonC.isChecked() && realAnswer == 3) {
+        } else if (radioButtonC.isChecked() && realAnswer == 3) {
             titleMessage = "Nice!";
             message = "Good job!";
         } else if (!radioButtonA.isChecked() && !radioButtonB.isChecked() && !radioButtonC.isChecked()) {

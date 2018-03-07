@@ -7,16 +7,11 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.SharedElementCallback;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,38 +19,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.m68476521.mymexico.MainActivity;
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
 import com.m68476521.mymexico.databinding.FragmentNewsBinding;
-import com.m68476521.mymexico.fragmentNewsDetails.NewsViewPagerFragment;
 import com.m68476521.mymexico.utilities.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Fragment to shows news.
  */
 
 public class News extends Fragment {
-    public static final String TAG = News.class.getSimpleName();
-    private FragmentNewsBinding fragmentNewsBinding;
-    private Cursor cursor;
-    private NewsAdapter newsAdapter;
-    NewsItemClickListener newsItemClickListener;
-
-    public static News newInstance(NewsItemClickListener newsItemClickListener) {
-        Bundle args = new Bundle();
-//        args.putSerializable(ARG_MOVIE_ID, id);
-        News fragment = new News();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private static final String TAG = News.class.getSimpleName();
+    private static Cursor cursor;
+    private static NewsAdapter newsAdapter;
+    private NewsItemClickListener newsItemClickListener;
+    private static Context context;
 
     @Override
     public void onAttach(Context context) {
@@ -71,6 +54,7 @@ public class News extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        context = getContext();
         cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
                 null,
                 null,
@@ -91,7 +75,7 @@ public class News extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragmentNewsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false);
+        FragmentNewsBinding fragmentNewsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
                 GridLayoutManager.VERTICAL, false);
@@ -104,7 +88,7 @@ public class News extends Fragment {
             } else {
                 numberColumns = 3;
             }
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),numberColumns);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberColumns);
             fragmentNewsBinding.recyclerView.setLayoutManager(gridLayoutManager);
         } else {
             fragmentNewsBinding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -117,8 +101,8 @@ public class News extends Fragment {
             }
         }, new NewsItemClickListener() {
             @Override
-            public void onlItemClick(String section,int pos, ImageView shareImageView, View v) {
-                newsItemClickListener.onlItemClick(section,pos, shareImageView, v);
+            public void onlItemClick(String section, int pos, ImageView shareImageView, View v) {
+                newsItemClickListener.onlItemClick(section, pos, shareImageView, v);
             }
         });
 
@@ -135,7 +119,7 @@ public class News extends Fragment {
         new RetrieveInfoAPI().execute(searchUrl);
     }
 
-    private class RetrieveInfoAPI extends AsyncTask<URL, Void, String> {
+    private static class RetrieveInfoAPI extends AsyncTask<URL, Void, String> {
         JSONObject result = null;
 
         @Override
@@ -162,7 +146,7 @@ public class News extends Fragment {
                         contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, description);
                         contentValues.put(TaskContract.TaskEntry.COLUMN_IMAGE, image);
                         contentValues.put(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED, lastModified);
-                        Uri uri = getContext().getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI, contentValues);
+                        context.getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI, contentValues);
                     }
                 }
 
@@ -175,7 +159,7 @@ public class News extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
+            cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
                     null,
                     null,
                     null,
@@ -187,7 +171,7 @@ public class News extends Fragment {
         }
     }
 
-    private void setupAdapterByCursor(Cursor cursor) {
+    private static void setupAdapterByCursor(Cursor cursor) {
         newsAdapter.swapCursor(cursor);
     }
 
