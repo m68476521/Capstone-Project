@@ -44,12 +44,13 @@ public class TrickAdapter extends RecyclerView.Adapter<TrickAdapter.ViewHolder> 
         String title = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION));
         holder.textViewTitle.setText(title);
 
+        String image = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_IMAGE));
+
         Picasso.with(context)
-                .load(R.drawable.ic_launcher_background)
+                .load(image)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.imageViewBackGround);
-
-        String image = cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A));
+        
         if (TextUtils.isEmpty(image)) {
             holder.imageViewBackGround.setVisibility(View.GONE);
         } else {

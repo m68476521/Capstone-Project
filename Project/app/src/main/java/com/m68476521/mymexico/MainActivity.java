@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
             String fake_a = getIntent().getExtras().get("f_fake_answer_a").toString();
             String fake_b = getIntent().getExtras().get("f_fake_answer_b").toString();
             String answer = getIntent().getExtras().get("f_valid_answer").toString();
+            String image = getIntent().getExtras().get("f_url").toString();
 
             ContentValues newMessage = new ContentValues();
             newMessage.put(TaskContract.TaskEntry.COLUMN_ID, id);
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A, fake_a);
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B, fake_b);
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_HINT, f_hint);
+            newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_IMAGE, image);
             getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI_TRICKS, newMessage);
         }
     }

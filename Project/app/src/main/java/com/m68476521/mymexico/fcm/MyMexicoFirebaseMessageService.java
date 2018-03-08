@@ -33,6 +33,7 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
     private static final String JSON_KEY_FAKE_A = TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A;
     private static final String JSON_KEY_FAKE_B = TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B;
     private static final String JSON_KEY_HINT = TaskContract.TaskEntry.COLUMN_FCM_HINT;
+    private static final String JSON_KEY_IMAGE = TaskContract.TaskEntry.COLUMN_FCM_IMAGE;
 
     private static final int NOTIFICATION_MAX_CHARACTERS = 30;
     private static final String LOG_TAG = MyMexicoFirebaseMessageService.class.getSimpleName();
@@ -143,6 +144,7 @@ public class MyMexicoFirebaseMessageService extends FirebaseMessagingService {
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A, data.get(JSON_KEY_FAKE_A));
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B, data.get(JSON_KEY_FAKE_B));
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_HINT, data.get(JSON_KEY_HINT));
+            newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_IMAGE, data.get(JSON_KEY_IMAGE));
             context.getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI_TRICKS, newMessage);
             return null;
         }

@@ -39,6 +39,7 @@ class TaskDbHelper extends SQLiteOpenHelper {
                 TaskContract.TaskEntry.COLUMN_FCM_ANSWER + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_FCM_IMAGE + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_FCM_HINT + " TEXT NOT NULL);";
 
         final String CREATE_TABLE_FAVORITES = "CREATE TABLE " + TaskContract.TaskEntry.TABLE_NAME_FAVORITES + " (" +

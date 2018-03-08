@@ -50,6 +50,7 @@ public class TaskContract {
         public static final String COLUMN_FCM_FAKE_ANS_A = "f_fake_answer_a";
         public static final String COLUMN_FCM_FAKE_ANS_B = "f_fake_answer_b";
         public static final String COLUMN_FCM_HINT = "f_hint";
+        public static final String COLUMN_FCM_IMAGE = "f_url";
 
         public static final String TABLE_NAME_FAVORITES = "favorites";
     }
