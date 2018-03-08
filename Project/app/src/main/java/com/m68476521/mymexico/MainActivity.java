@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutResId(0));
+        setContentView(getLayoutResId());
         //getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
 
         fragmentManager = getSupportFragmentManager();
@@ -56,13 +56,8 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
     }
 
     @LayoutRes
-    private int getLayoutResId(int layout) {
-        if (layout == 0) {
-            return R.layout.activity_main;
-        } else {
-//            return R.layout.fragment_master_container;
-            return 0;
-        }
+    private int getLayoutResId() {
+        return R.layout.activity_main;
     }
 
     private Fragment createFragment() {

@@ -19,7 +19,6 @@ public class NewsPageAdapter extends FragmentStatePagerAdapter {
 
     NewsPageAdapter(String section, FragmentManager fm, Context context) {
         super(fm);
-        Context context1 = context;
         this.section = section;
 
         if (section.equals(EXTRA_SECTION_NEWS)) {

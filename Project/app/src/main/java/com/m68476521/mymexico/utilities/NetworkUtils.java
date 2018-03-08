@@ -23,11 +23,8 @@ public class NetworkUtils {
     private final static String BASE_URL =
             "";
 
-
-    private final static String TAG = "NetworkUtils";
-
     public static java.net.URL buildUrl() {
-        Uri builtUri = null;
+        Uri builtUri;
         builtUri = Uri.parse(BASE_URL).buildUpon()
                 .build();
 
@@ -47,7 +44,7 @@ public class NetworkUtils {
             Request request = new Request.Builder()
                     .url(BASE_URL)
                     .build();
-            Response responses = null;
+            Response responses;
             try {
                 responses = client.newCall(request).execute();
                 return new JSONObject(responses.body().string());
