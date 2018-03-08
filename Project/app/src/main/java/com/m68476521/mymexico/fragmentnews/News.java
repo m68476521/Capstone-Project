@@ -138,14 +138,16 @@ public class News extends Fragment {
                         String id = innerObject.getString(TaskContract.TaskEntry.COLUMN_ID);
                         String description = innerObject.getString(TaskContract.TaskEntry.COLUMN_DESCRIPTION);
                         String image = innerObject.getString(TaskContract.TaskEntry.COLUMN_IMAGE);
-                        String lastModified = innerObject.getString(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED);
+                        String category = innerObject.getString(TaskContract.TaskEntry.COLUMN_CATEGORY);
+                        String short_desc = innerObject.getString(TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION);
 
                         ContentValues contentValues = new ContentValues();
                         contentValues.put(TaskContract.TaskEntry.COLUMN_ID, id);
                         contentValues.put(TaskContract.TaskEntry.COLUMN_NAME, name);
                         contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, description);
                         contentValues.put(TaskContract.TaskEntry.COLUMN_IMAGE, image);
-                        contentValues.put(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED, lastModified);
+                        contentValues.put(TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION, short_desc);
+                        contentValues.put(TaskContract.TaskEntry.COLUMN_CATEGORY, category);
                         context.getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI, contentValues);
                     }
                 }
@@ -205,7 +207,8 @@ public class News extends Fragment {
             contentValues.put(TaskContract.TaskEntry.COLUMN_NAME, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME)));
             contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)));
             contentValues.put(TaskContract.TaskEntry.COLUMN_IMAGE, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_IMAGE)));
-            contentValues.put(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED)));
+            contentValues.put(TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION)));
+            contentValues.put(TaskContract.TaskEntry.COLUMN_CATEGORY, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_CATEGORY)));
             Uri uri =
                     getContext().getContentResolver().insert(
                             TaskContract.TaskEntry.CONTENT_URI_FAVORITES, contentValues);

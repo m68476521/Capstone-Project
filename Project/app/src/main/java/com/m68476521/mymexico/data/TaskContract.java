@@ -39,7 +39,7 @@ public class TaskContract {
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_SHORT_DESCRIPTION = "short_description";
         public static final String COLUMN_IMAGE = "url";
-        public static final String COLUMN_LAST_MODIFIED = "lastModified";
+
         public static final String COLUMN_CATEGORY = "category";
 
         // this is for handling FCM

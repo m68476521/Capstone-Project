@@ -28,7 +28,8 @@ class TaskDbHelper extends SQLiteOpenHelper {
                 TaskContract.TaskEntry.COLUMN_ID + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                TaskContract.TaskEntry.COLUMN_LAST_MODIFIED + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_CATEGORY + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_IMAGE + " TEXT NOT NULL);";
 
         final String CREATE_TABLE_TRICKS = "CREATE TABLE " + TaskContract.TaskEntry.TABLE_NAME_TRICKS + " (" +
@@ -45,7 +46,8 @@ class TaskDbHelper extends SQLiteOpenHelper {
                 TaskContract.TaskEntry.COLUMN_ID + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                TaskContract.TaskEntry.COLUMN_LAST_MODIFIED + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COLUMN_CATEGORY + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COLUMN_IMAGE + " TEXT NOT NULL);";
 
         db.execSQL(CREATE_TABLE_TRICKS);

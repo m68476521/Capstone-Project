@@ -137,7 +137,8 @@ public class FragmentFavorite extends Fragment {
             contentValues.put(TaskContract.TaskEntry.COLUMN_NAME, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_NAME)));
             contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)));
             contentValues.put(TaskContract.TaskEntry.COLUMN_IMAGE, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_IMAGE)));
-            contentValues.put(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_LAST_MODIFIED)));
+            contentValues.put(TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION)));
+            contentValues.put(TaskContract.TaskEntry.COLUMN_CATEGORY, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_CATEGORY)));
             Uri uri =
                     getContext().getContentResolver().insert(
                             TaskContract.TaskEntry.CONTENT_URI_FAVORITES, contentValues);

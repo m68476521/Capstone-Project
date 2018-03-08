@@ -127,7 +127,7 @@ public class NewsDetailFragment extends Fragment {
         binding.newsDetailImageView.setTransitionName(transitionName);
 
 
-        binding.categoryTextView.setText("CategoryExample");
+        binding.categoryTextView.setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_CATEGORY)));
 
         Picasso.with(getContext())
                 .load(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_IMAGE)))
