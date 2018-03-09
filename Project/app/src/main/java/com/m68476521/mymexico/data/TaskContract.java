@@ -11,7 +11,7 @@ public class TaskContract {
 
     public static final String AUTHORITY = "com.m68476521.mymexico";
     //base content URI
-    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
     public static final String PATH_NEWS = "news";
     public static final String PATH_TRICKS = "tricks";

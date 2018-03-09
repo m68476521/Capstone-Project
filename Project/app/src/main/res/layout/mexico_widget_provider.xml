@@ -9,13 +9,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
+        android:layout_margin="@dimen/margin_8"
         android:contentDescription="@string/appwidget_text"
         android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textColor="@color/colorSecondPrimary"
+        android:textSize="@dimen/text_size_24"
+        android:textStyle="bold|italic"/>
+
+    <TextView
+        android:id="@+id/message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appwidget_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_8"
+        android:gravity="center"
+        android:text="@string/appwidget_text"
+        android:textColor="@color/colorSecondPrimary"
+        android:textSize="@dimen/text_size_20"
         android:textStyle="bold|italic"/>
 
 </RelativeLayout>

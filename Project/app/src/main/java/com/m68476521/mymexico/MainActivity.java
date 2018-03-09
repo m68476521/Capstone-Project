@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.m68476521.mymexico.data.TaskContract;
+import com.m68476521.mymexico.data.TrickService;
 import com.m68476521.mymexico.fragmentNewsDetails.NewsViewPagerFragment;
 import com.m68476521.mymexico.fragmentmain.FragmentMainSmall;
 import com.m68476521.mymexico.fragmentnews.NewsItemClickListener;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NewsItemClickList
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B, fake_b);
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_HINT, f_hint);
             newMessage.put(TaskContract.TaskEntry.COLUMN_FCM_IMAGE, image);
+            TrickService.startActionUpdateTrickWidgets(this, question);
             getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI_TRICKS, newMessage);
         }
     }
