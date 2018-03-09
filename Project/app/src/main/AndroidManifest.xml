@@ -18,23 +18,35 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <provider
-            android:authorities="com.m68476521.mymexico"
-            android:name=".data.TaskContentProvider" />
 
-        <service android:name=".fcm.MyMexicoFirebaseMessageService"
-                 android:exported="false">
+        <provider
+            android:name=".data.TaskContentProvider"
+            android:authorities="com.m68476521.mymexico"/>
+
+        <service
+            android:name=".fcm.MyMexicoFirebaseMessageService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        
-        <service android:name=".fcm.MyMexicoFirebaseInstanceIdService"
-                 android:exported="false">
+        <service
+            android:name=".fcm.MyMexicoFirebaseInstanceIdService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+
+        <receiver android:name=".MexicoWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/mexico_widget_provider_info"/>
+        </receiver>
     </application>
 
 </manifest>
