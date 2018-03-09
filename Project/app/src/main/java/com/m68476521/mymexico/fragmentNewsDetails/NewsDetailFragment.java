@@ -123,9 +123,7 @@ public class NewsDetailFragment extends Fragment {
 
         binding.newsDetailText.setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION)));
 
-
         binding.newsDetailImageView.setTransitionName(transitionName);
-
 
         binding.categoryTextView.setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_CATEGORY)));
 

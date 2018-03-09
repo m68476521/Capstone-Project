@@ -23,6 +23,11 @@ import java.util.Random;
  */
 
 public class CustomBottomSheet extends BottomSheetDialogFragment {
+    private static final String EXTRA_BODY_QUESTION = "bodyQuestion";
+    private static final String EXTRA_BODY_ANSWER = "bodyAnswer";
+    private static final String EXTRA_BODY_FAKE_A = "bodyFakeA";
+    private static final String EXTRA_BODY_FAKE_B = "bodyFakeB";
+
     private String bodyQuestion;
     private String bodyAnswer;
     private String bodyFakeA;
@@ -98,10 +103,10 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bodyQuestion = getArguments().getString("bodyQuestion");
-        bodyAnswer = getArguments().getString("bodyAnswer");
-        bodyFakeA = getArguments().getString("bodyFakeA");
-        bodyFakeB = getArguments().getString("bodyFakeB");
+        bodyQuestion = getArguments().getString(EXTRA_BODY_QUESTION);
+        bodyAnswer = getArguments().getString(EXTRA_BODY_ANSWER);
+        bodyFakeA = getArguments().getString(EXTRA_BODY_FAKE_A);
+        bodyFakeB = getArguments().getString(EXTRA_BODY_FAKE_B);
     }
 
     private void showEditDialog() {
@@ -109,24 +114,24 @@ public class CustomBottomSheet extends BottomSheetDialogFragment {
         String message;
         String titleMessage;
         if (radioButtonA.isChecked() && realAnswer == 1) {
-            titleMessage = "Great!";
-            message = "yes, that is correct answer!";
+            titleMessage = getString(R.string.great);
+            message = getString(R.string.yes_1);
         } else if (radioButtonB.isChecked() && realAnswer == 2) {
-            titleMessage = "That's right";
-            message = "yes, that is correct!";
+            titleMessage = getString(R.string.title_2);
+            message = getString(R.string.message_2);
         } else if (radioButtonC.isChecked() && realAnswer == 3) {
-            titleMessage = "Nice!";
-            message = "Good job!";
+            titleMessage = getString(R.string.title_3);
+            message = getString(R.string.message_3);
         } else if (!radioButtonA.isChecked() && !radioButtonB.isChecked() && !radioButtonC.isChecked()) {
-            titleMessage = "Something went wrong ...";
-            message = "Please select one option";
+            titleMessage = getString(R.string.title_4);
+            message = getString(R.string.message_4);
         } else {
-            titleMessage = "Ups!";
-            message = "Wrong answer try again";
+            titleMessage = getString(R.string.title_5);
+            message = getString(R.string.message_5);
         }
 
         VerifyDialogFragment editNameDialogFragment = VerifyDialogFragment.newInstance(titleMessage, message);
-        editNameDialogFragment.show(fm, "fragment_edit_name");
+        editNameDialogFragment.show(fm, getString(R.string.tag_fragment));
     }
 
     private int randomNumber() {

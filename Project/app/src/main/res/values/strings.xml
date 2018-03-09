@@ -11,5 +11,30 @@
     <string name="action_share">Share</string>
 
     <string name="image_desc">simple image description</string>
+    <string name="item_example">Item example</string>
+    <string name="category_example">Category example</string>
+
+    <string name="great">Great!</string>
+    <string name="yes_1">yes, that is correct answer!</string>
+
+    <string name="title_2">That is right!</string>
+    <string name="message_2">yes, that is correct!</string>
+
+    <string name="title_3">Nice!</string>
+    <string name="message_3">Good job!</string>
+
+    <string name="title_4">Something went wrong.</string>
+    <string name="message_4">Please select one option</string>
+
+    <string name="title_5">Ups!</string>
+    <string name="message_5">Wrong answer try again!</string>
+
+    <string name="tag_fragment">fragment_edit_name</string>
+
+    <string name="default_name">Enter name</string>
+    <string name="default_message">no message</string>
+    <string name="ok_message">Ok</string>
+
+    <string name="favorites_key">FAVORITES</string>
 
 </resources>

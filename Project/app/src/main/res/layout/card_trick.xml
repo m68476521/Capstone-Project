@@ -43,7 +43,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size_xx"
-                tools:text="Item recipe"/>
+                tools:text="@string/item_example"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

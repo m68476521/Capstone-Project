@@ -21,6 +21,10 @@ import com.m68476521.mymexico.data.TaskContract;
 import com.m68476521.mymexico.databinding.FragmentTrickBinding;
 
 public class FragmentTrick extends Fragment {
+    private static final String EXTRA_BODY_QUESTION = "bodyQuestion";
+    private static final String EXTRA_BODY_ANSWER = "bodyAnswer";
+    private static final String EXTRA_BODY_FAKE_A = "bodyFakeA";
+    private static final String EXTRA_BODY_FAKE_B = "bodyFakeB";
 
     private Cursor cursor;
     private TrickAdapter trickAdapter;
@@ -63,10 +67,10 @@ public class FragmentTrick extends Fragment {
                 cursor.moveToPosition(position);
                 BottomSheetDialogFragment bottomSheetDialogFragment = new CustomBottomSheet();
                 Bundle args = new Bundle();
-                args.putString("bodyQuestion", cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION)));
-                args.putString("bodyFakeA", cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A)));
-                args.putString("bodyFakeB", cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B)));
-                args.putString("bodyAnswer", cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_ANSWER)));
+                args.putString(EXTRA_BODY_QUESTION, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_QUESTION)));
+                args.putString(EXTRA_BODY_FAKE_A, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_A)));
+                args.putString(EXTRA_BODY_FAKE_B, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_FAKE_ANS_B)));
+                args.putString(EXTRA_BODY_ANSWER, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_FCM_ANSWER)));
 
                 bottomSheetDialogFragment.setArguments(args);
                 bottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), bottomSheetDialogFragment.getTag());

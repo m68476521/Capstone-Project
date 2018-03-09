@@ -77,9 +77,6 @@ public class News extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentNewsBinding fragmentNewsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
-                GridLayoutManager.VERTICAL, false);
-
         int numberColumns;
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
         if (isTablet) {
@@ -91,7 +88,13 @@ public class News extends Fragment {
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberColumns);
             fragmentNewsBinding.recyclerView.setLayoutManager(gridLayoutManager);
         } else {
-            fragmentNewsBinding.recyclerView.setLayoutManager(linearLayoutManager);
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                numberColumns = 1;
+            } else {
+                numberColumns = 2;
+            }
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberColumns);
+            fragmentNewsBinding.recyclerView.setLayoutManager(gridLayoutManager);
         }
 
         newsAdapter = new NewsAdapter(getActivity(), new NewsAdapter.OnItemClicked() {

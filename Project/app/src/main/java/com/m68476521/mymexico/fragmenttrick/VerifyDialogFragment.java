@@ -39,7 +39,7 @@ public class VerifyDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String title = getArguments().getString("title", "Enter Name");
+        String title = getArguments().getString(EXTRA_TITLE, getString(R.string.default_name));
         getDialog().setTitle(title);
     }
 
@@ -47,9 +47,9 @@ public class VerifyDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity())
-                .setTitle("title")
-                .setMessage(getArguments().getString("body_message", "no message"))
-                .setPositiveButton("OK",
+                .setTitle(EXTRA_TITLE)
+                .setMessage(getArguments().getString(EXTRA_MESSAGE, getString(R.string.default_message)))
+                .setPositiveButton(getString(R.string.ok_message),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.dismiss();

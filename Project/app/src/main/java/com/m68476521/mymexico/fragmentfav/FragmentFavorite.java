@@ -33,6 +33,7 @@ public class FragmentFavorite extends Fragment {
     private Cursor cursor;
     private NewsAdapter newsAdapter;
     private NewsItemClickListener newsItemClickListener;
+    private Context context;
 
     @Override
     public void onAttach(Context context) {
@@ -47,14 +48,16 @@ public class FragmentFavorite extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
+
+        context = getActivity();
+        cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
                 null,
                 null,
                 null,
                 TaskContract.TaskEntry.COLUMN_ID);
 
         MyObserver myObserver = new MyObserver(new Handler());
-        getContext().getContentResolver().registerContentObserver(
+        context.getContentResolver().registerContentObserver(
                 TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
                 true, myObserver
         );
@@ -64,8 +67,6 @@ public class FragmentFavorite extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentFavoriteBinding fragmentFavoriteBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
         fragmentFavoriteBinding.recyclerViewFav.setHasFixedSize(true);
 
@@ -77,7 +78,7 @@ public class FragmentFavorite extends Fragment {
         }, new NewsItemClickListener() {
             @Override
             public void onlItemClick(String section, int pos, ImageView shareImageView, View view) {
-                newsItemClickListener.onlItemClick("FAVORITES", pos, shareImageView, view);
+                newsItemClickListener.onlItemClick(getString(R.string.favorites_key), pos, shareImageView, view);
             }
         });
 
@@ -94,7 +95,13 @@ public class FragmentFavorite extends Fragment {
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberColumns);
             fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(gridLayoutManager);
         } else {
-            fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(linearLayoutManager);
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                numberColumns = 1;
+            } else {
+                numberColumns = 2;
+            }
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberColumns);
+            fragmentFavoriteBinding.recyclerViewFav.setLayoutManager(gridLayoutManager);
         }
 
         if (cursor != null && cursor.getCount() > 0) {
@@ -116,7 +123,7 @@ public class FragmentFavorite extends Fragment {
             Uri uri2 = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
 
             uri2 = uri2.buildUpon().appendPath(mId).build();
-            cursorResult = getContext().getContentResolver().query(uri2,
+            cursorResult = context.getContentResolver().query(uri2,
                     null,
                     null,
                     null,
@@ -130,7 +137,7 @@ public class FragmentFavorite extends Fragment {
         if (isFav) {
             Uri uri = TaskContract.TaskEntry.CONTENT_URI_FAVORITES;
             uri = uri.buildUpon().appendPath(mId).build();
-            getContext().getContentResolver().delete(uri, null, null);
+            context.getContentResolver().delete(uri, null, null);
         } else {
             ContentValues contentValues = new ContentValues();
             contentValues.put(TaskContract.TaskEntry.COLUMN_ID, mId);
@@ -140,7 +147,7 @@ public class FragmentFavorite extends Fragment {
             contentValues.put(TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_SHORT_DESCRIPTION)));
             contentValues.put(TaskContract.TaskEntry.COLUMN_CATEGORY, cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_CATEGORY)));
             Uri uri =
-                    getContext().getContentResolver().insert(
+                    context.getContentResolver().insert(
                             TaskContract.TaskEntry.CONTENT_URI_FAVORITES, contentValues);
 
             if (uri != null) {
@@ -163,11 +170,12 @@ public class FragmentFavorite extends Fragment {
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
-            cursor = getContext().getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
+            cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
                     null,
                     null,
                     null,
                     TaskContract.TaskEntry.COLUMN_ID);
+
             setupAdapterByCursor(cursor);
         }
     }

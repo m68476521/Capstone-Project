@@ -63,7 +63,7 @@
                         android:textSize="@dimen/text_size_x"
                         app:layout_constraintBottom_toBottomOf="@+id/news_detail_image_view"
                         app:layout_constraintStart_toStartOf="@id/news_detail_image_view"
-                        tools:text="Category example"/>
+                        tools:text="@string/category_example"/>
 
                 </RelativeLayout>
 
