@@ -22,10 +22,6 @@ public class NewsViewPagerFragment extends Fragment {
     private static final String EXTRA_SECTION = "section";
     private String section;
 
-    public NewsViewPagerFragment() {
-
-    }
-
     public static NewsViewPagerFragment newInstance(String section, int currentItem, Context context) {
         NewsViewPagerFragment newsViewPagerFragment = new NewsViewPagerFragment();
         Bundle bundle = new Bundle();

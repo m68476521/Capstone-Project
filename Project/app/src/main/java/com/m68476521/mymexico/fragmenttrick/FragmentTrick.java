@@ -110,12 +110,6 @@ public class FragmentTrick extends Fragment {
         }
 
         @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-        }
-
-
-        @Override
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
             cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_TRICKS,

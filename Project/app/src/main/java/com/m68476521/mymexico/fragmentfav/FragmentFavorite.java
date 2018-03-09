@@ -11,8 +11,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.m68476521.mymexico.R;
 import com.m68476521.mymexico.data.TaskContract;
+import com.m68476521.mymexico.data.TaskModelLoader;
 import com.m68476521.mymexico.databinding.FragmentFavoriteBinding;
 import com.m68476521.mymexico.fragmentnews.NewsAdapter;
 import com.m68476521.mymexico.fragmentnews.NewsItemClickListener;
@@ -29,11 +31,13 @@ import com.m68476521.mymexico.fragmentnews.NewsItemClickListener;
  * This fragment will be handling favorites for small devices
  */
 
-public class FragmentFavorite extends Fragment {
+public class FragmentFavorite extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private Cursor cursor;
     private NewsAdapter newsAdapter;
     private NewsItemClickListener newsItemClickListener;
     private Context context;
+    MyObserver myObserver;
+    private static final int TASK_LOADER_ID = 1;
 
     @Override
     public void onAttach(Context context) {
@@ -56,11 +60,23 @@ public class FragmentFavorite extends Fragment {
                 null,
                 TaskContract.TaskEntry.COLUMN_ID);
 
-        MyObserver myObserver = new MyObserver(new Handler());
+        myObserver = new MyObserver(new Handler());
         context.getContentResolver().registerContentObserver(
                 TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
                 true, myObserver
         );
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        context.getContentResolver().unregisterContentObserver(myObserver);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        context.getContentResolver().unregisterContentObserver(myObserver);
     }
 
     @Nullable
@@ -156,6 +172,21 @@ public class FragmentFavorite extends Fragment {
         }
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new TaskModelLoader(getContext(), 3, "");
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        setupAdapterByCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
     class MyObserver extends ContentObserver {
         public MyObserver(Handler handler) {
             super(handler);
@@ -170,13 +201,11 @@ public class FragmentFavorite extends Fragment {
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
-            cursor = context.getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI_FAVORITES,
-                    null,
-                    null,
-                    null,
-                    TaskContract.TaskEntry.COLUMN_ID);
-
-            setupAdapterByCursor(cursor);
+            callLoader();
         }
+    }
+
+    private void callLoader() {
+        getLoaderManager().initLoader(TASK_LOADER_ID, null, this).forceLoad();
     }
 }

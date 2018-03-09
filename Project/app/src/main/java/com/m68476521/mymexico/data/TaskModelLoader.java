@@ -10,14 +10,14 @@ import android.util.Log;
  * Class used to handles the loaders
  */
 
-class TaskModelLoader extends AsyncTaskLoader<Cursor> {
+public class TaskModelLoader extends AsyncTaskLoader<Cursor> {
     private static final String TAG = TaskModelLoader.class.getSimpleName();
     private Cursor cursor;
     private final Context context;
     private final int queryId;
     private final String recipeValue;
 
-    private TaskModelLoader(final Context context, int idQuery, String recipeValue) {
+    public TaskModelLoader(final Context context, int idQuery, String recipeValue) {
         super(context);
         this.context = context;
         queryId = idQuery;
@@ -49,7 +49,7 @@ class TaskModelLoader extends AsyncTaskLoader<Cursor> {
                             null,
                             null,
                             null,
-                            null);
+                            TaskContract.TaskEntry.COLUMN_ID);
                     break;
                 default:
                     Log.d(TAG, " id query not found");
