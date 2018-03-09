@@ -36,7 +36,7 @@ public class FragmentFavorite extends Fragment implements LoaderManager.LoaderCa
     private NewsAdapter newsAdapter;
     private NewsItemClickListener newsItemClickListener;
     private Context context;
-    MyObserver myObserver;
+    private MyObserver myObserver;
     private static final int TASK_LOADER_ID = 1;
 
     @Override

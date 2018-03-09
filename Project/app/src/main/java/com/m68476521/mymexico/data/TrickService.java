@@ -14,7 +14,7 @@ import com.m68476521.mymexico.MexicoWidgetProvider;
 
 public class TrickService extends IntentService {
 
-    public static final String ACTION_TRICK_lIST =
+    private static final String ACTION_TRICK_lIST =
             "com.m68476521.mike.myMexico.data.question";
 
     public TrickService() {
@@ -28,7 +28,7 @@ public class TrickService extends IntentService {
      * @see IntentService
      */
 
-    private static String question;
+    private static String question = "";
 
     /**
      * Starts this service to perform UpdateListIngredientWidgets action with the given parameters. If

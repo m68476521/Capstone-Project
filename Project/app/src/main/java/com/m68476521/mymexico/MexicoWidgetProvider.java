@@ -14,9 +14,9 @@ import com.m68476521.mymexico.data.TrickService;
  */
 public class MexicoWidgetProvider extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                String message,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        String message,
+                                        int appWidgetId) {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
@@ -56,4 +56,3 @@ public class MexicoWidgetProvider extends AppWidgetProvider {
         }
     }
 }
-
